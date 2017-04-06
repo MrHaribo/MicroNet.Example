@@ -33,7 +33,7 @@ public class RegionService {
 	private RegionDatabase database;
 
 	@OnStart
-	protected void onStart(Context context) {
+	public void onStart(Context context) {
 
 		database = new RegionDatabase();
 		if (System.getenv("region_pool_enabled") != null)

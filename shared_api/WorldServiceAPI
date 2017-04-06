@@ -1,0 +1,27 @@
+{
+  "serviceName": "WorldService",
+  "serviceUri": "mn://world",
+  "listeners": [
+    {
+      "listenerUri": "/join",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/travel",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/battles/all",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    }
+  ]
+}

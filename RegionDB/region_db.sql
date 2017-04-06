@@ -153,7 +153,7 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 REVOKE ALL ON TABLE master_regions FROM PUBLIC;
 REVOKE ALL ON TABLE master_regions FROM postgres;
 GRANT ALL ON TABLE master_regions TO postgres;
-GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE master_regions TO world_service;
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE master_regions TO region_service;
 
 
 -- Completed on 2017-04-05 16:03:59

@@ -20,7 +20,7 @@ public class RegionDatabase extends Database {
 	}
 
 	public RegionDatabase() {
-		super("region_db", "world_service", "world1234");
+		super("region_db", "region_service", "region1234");
 	}
 
 	public boolean addMasterRegion(RegionValues region) {

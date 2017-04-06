@@ -1,0 +1,20 @@
+{
+  "serviceName": "AccountService",
+  "serviceUri": "mn://account",
+  "listeners": [
+    {
+      "listenerUri": "/login",
+      "requestDataType": "CredentialValues",
+      "responseDataType": "UserValues",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/register",
+      "requestDataType": "CredentialValues",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    }
+  ]
+}

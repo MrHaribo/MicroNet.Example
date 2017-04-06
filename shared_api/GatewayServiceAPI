@@ -1,0 +1,13 @@
+{
+  "serviceName": "GatewayService",
+  "serviceUri": "mn://gateway",
+  "listeners": [
+    {
+      "listenerUri": "/forward/event",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    }
+  ]
+}

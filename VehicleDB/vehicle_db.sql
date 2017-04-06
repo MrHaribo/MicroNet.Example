@@ -39,7 +39,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 CREATE ROLE vehicle_service LOGIN
-  ENCRYPTED PASSWORD 'shop1234'
+  ENCRYPTED PASSWORD 'vehicle1234'
   NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION;
 
 CREATE DATABASE vehicle_db OWNER postgres;
