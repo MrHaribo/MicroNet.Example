@@ -1,4 +1,4 @@
-version: "2.1"
+version: "2"
 services:
 
 # Gateway Service Definition
@@ -6,7 +6,6 @@ services:
   gateway-service:
     build: 
       context: ./GatewayService
-      dockerfile: Deploy.Dockerfile
     volumes:
       - ./wait-for-it.sh:/wait-for-it.sh
     links:
@@ -18,7 +17,6 @@ services:
   world-service:
     build: 
       context: ./WorldService
-      dockerfile: Deploy.Dockerfile
     volumes:
       - ./wait-for-it.sh:/wait-for-it.sh
     links:
@@ -30,7 +28,6 @@ services:
   vehicle-service:
     build: 
       context: ./VehicleService
-      dockerfile: Deploy.Dockerfile
     volumes:
       - ./wait-for-it.sh:/wait-for-it.sh
     links:
@@ -46,7 +43,6 @@ services:
   shop-service:
     build: 
       context: ./ShopService
-      dockerfile: Deploy.Dockerfile
     volumes:
       - ./wait-for-it.sh:/wait-for-it.sh
     links:
@@ -62,7 +58,6 @@ services:
   region-service:
     build: 
       context: ./RegionService
-      dockerfile: Deploy.Dockerfile
     volumes:
       - ./wait-for-it.sh:/wait-for-it.sh
     links:
@@ -78,7 +73,6 @@ services:
   item-service:
     build: 
       context: ./ItemService
-      dockerfile: Deploy.Dockerfile
     volumes:
       - ./wait-for-it.sh:/wait-for-it.sh
     links:
@@ -94,7 +88,6 @@ services:
   avatar-service:
     build: 
       context: ./AvatarService
-      dockerfile: Deploy.Dockerfile
     volumes:
       - ./wait-for-it.sh:/wait-for-it.sh
     links:
@@ -110,7 +103,6 @@ services:
   account-service:
     build: 
       context: ./AccountService
-      dockerfile: Deploy.Dockerfile
     volumes:
       - ./wait-for-it.sh:/wait-for-it.sh
     links:
@@ -126,4 +118,4 @@ services:
   activemq:
     image: "webcenter/activemq:latest"
     ports:
-      - 61616:61616
+      - 40000:61616

@@ -1,4 +1,4 @@
-FROM maven:latest
+FROM openjdk:latest
 
 RUN mkdir --parents /usr/src/app
 WORKDIR /usr/src/app
