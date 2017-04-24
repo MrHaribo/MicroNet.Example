@@ -1,72 +1,100 @@
 {
-  "serviceName": "VehicleService",
-  "serviceUri": "mn://vehicle",
+  "serviceName": "AvatarService",
+  "serviceUri": "mn://avatar",
   "listeners": [
     {
-      "listenerUri": "/sell",
+      "listenerUri": "/reputation/add",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/weapon/equip",
+      "listenerUri": "/create",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/change",
+      "listenerUri": "/update",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/current",
+      "listenerUri": "/takeoff",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/collection/create",
+      "listenerUri": "/delete",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/configuration/all/upload",
+      "listenerUri": "/current/get",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/add",
+      "listenerUri": "/all",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/available",
+      "listenerUri": "/credits/add",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/weapon/unequip",
+      "listenerUri": "/update",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/collection/remove",
+      "listenerUri": "/current/name/get",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/current/set",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/get",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/land",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/credits/remove",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],

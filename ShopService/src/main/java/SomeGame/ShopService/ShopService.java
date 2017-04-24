@@ -33,7 +33,9 @@ public class ShopService {
 	public Response addShop(Context context, Request request) {
 		String faction = request.getParameters().getString(ParameterCode.FACTION);
 		ItemValues[] items = Serialization.deserialize(request.getData(), ItemValues[].class);
-		database.addShop(faction, items);
+		String rankRestrictionsData = request.getParameters().getString(ParameterCode.INDEX);
+		Integer[] rankRestrictions = Serialization.deserialize(rankRestrictionsData, Integer[].class);
+		database.addShop(faction, items, rankRestrictions);
 		return new Response(StatusCode.OK);
 	}
 
@@ -62,7 +64,19 @@ public class ShopService {
 		Request regionRequest = new Request(regionID.toString());
 		Response regionResponse = context.sendRequestBlocking("mn://region/get", regionRequest);
 		RegionValues region = Serialization.deserialize(regionResponse.getData(), RegionValues.class);
+		
+		if (avatar.getFaction().isHostile(region.getFaction()))
+			return new Response(StatusCode.FORBIDDEN, "Buy Forbidden: Hostile Planet");
 
+		int[] rankRestrictions = database.getRankRestrictions(region.getFaction());
+		int restriction = rankRestrictions[indices[0]];
+		if (restriction > 0) {
+			if (!avatar.getFaction().getName().equals(region.getFaction()))
+				return new Response(StatusCode.FORBIDDEN, "Buy Forbidden: You have the wrong Faction");
+			if (avatar.getFaction().getRank() < restriction)
+				return new Response(StatusCode.FORBIDDEN, "Insufficient Rank: Required " + restriction + " (Current " + avatar.getFaction().getRank() + ")");
+		}
+		
 		ItemValues[] shopItems = database.getShop(region.getFaction());
 		ItemValues itemToBuy = shopItems[indices[0]];
 

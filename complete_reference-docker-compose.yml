@@ -101,10 +101,10 @@ services:
       - activemq
       - avatar-db
     command: "/wait-for-it.sh activemq:61616 -- /wait-for-it.sh avatar-db:5432 -- java -cp ./target/classes:./target/lib/* ServiceImpl"
-  
+
   avatar-db:
     build: ./AvatarDB
-  
+
 # Account Service Definition
 
   account-service:
@@ -126,4 +126,4 @@ services:
   activemq:
     image: "webcenter/activemq:latest"
     ports:
-      - 40000:61616
+      - 61616:61616
