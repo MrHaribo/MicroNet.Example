@@ -147,7 +147,7 @@ public class RegionService {
 		// TODO: Make Thread safe
 		context.getAdvisory().registerQueueStateListener(regionID.getURI().toString(), (QueueState state) -> {
 			if (state == IAdvisory.QueueState.CLOSE && openRegions.containsKey(regionID.toString())) {
-				context.getAdvisory().unregisterQueueOpenListener(regionID.getURI().toString());
+				context.getAdvisory().unregisterQueueStateListener(regionID.getURI().toString());
 				openRegions.remove(regionID.toString());
 				System.out.println(
 						"Open region removed: " + regionID.getURI().toString() + "regions open: " + openRegions.size());

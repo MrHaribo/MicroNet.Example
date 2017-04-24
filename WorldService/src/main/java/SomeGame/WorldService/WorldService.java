@@ -57,6 +57,16 @@ public class WorldService {
 		int userID = request.getParameters().getInt(ParameterCode.USER_ID);
 		Response avatarResponse = context.sendRequestBlocking("mn://avatar/current/set", request);
 		AvatarValues avatar = Serialization.deserialize(avatarResponse.getData(), AvatarValues.class);
+		
+		//Avatar is in an old battle
+		if (isMatchID(avatar.getRegionID())) {
+			Request setRegionRequest = new Request();
+			setRegionRequest.getParameters().set(ParameterCode.USER_ID, userID);
+			setRegionRequest.getParameters().set(ParameterCode.REGION_ID, avatar.getHomeRegionID());
+			context.sendRequest("mn://avatar/update", setRegionRequest);
+			return JoinWorld(context, userID, avatar.getHomeRegionID(), avatarResponse.getData());
+		}
+				
 		return JoinWorld(context, userID, avatar.getRegionID(), avatarResponse.getData());
 	}
 
@@ -72,18 +82,28 @@ public class WorldService {
 
 	private void CreateBattleRegions(Context context) {
 		battleRegions = Collections.synchronizedSet(new HashSet<>());
-		CreateBattleRegions(context, new ID(IDType.Deathmath, (short) battleRegionCount++, confederateBattleRegions[0]));
-		CreateBattleRegions(context, new ID(IDType.Deathmath, (short) battleRegionCount++, confederateBattleRegions[1]));
-		CreateBattleRegions(context, new ID(IDType.Deathmath, (short) battleRegionCount++, rebelBattleRegions[0]));
-		CreateBattleRegions(context, new ID(IDType.Deathmath, (short) battleRegionCount++, rebelBattleRegions[1]));
-
+		CreateBattleRegion(context, IDType.Deathmath, confederateBattleRegions[0]);
+		CreateBattleRegion(context, IDType.Deathmath, confederateBattleRegions[1]);
+		CreateBattleRegion(context, IDType.Deathmath, rebelBattleRegions[0]);
+		CreateBattleRegion(context, IDType.Deathmath, rebelBattleRegions[1]);
+	}
+	
+	private void CreateBattleRegion(Context context, byte type, ID masterBattleRegionID) {
+		CreateBattleRegion(context, new ID(type, (short) battleRegionCount++, masterBattleRegionID));
 	}
 
-	private void CreateBattleRegions(Context context, ID battleRegionID) {
+	private void CreateBattleRegion(Context context, ID battleRegionID) {
 		Request getRegionRequest = new Request(battleRegionID.toString());
-		context.sendRequest("mn://region/get", getRegionRequest, (Response getRegionResponse) -> {
-			RegionValues battleRegion = Serialization.deserialize(getRegionResponse.getData(), RegionValues.class);
-			battleRegions.add(battleRegion);
+		Response getRegionResponse = context.sendRequestBlocking("mn://region/get", getRegionRequest);
+		RegionValues battleRegion = Serialization.deserialize(getRegionResponse.getData(), RegionValues.class);
+		battleRegions.add(battleRegion);
+		
+		context.getAdvisory().registerQueueStateListener(battleRegion.getID().getURI().toString(), (QueueState state) -> {
+			if (state == QueueState.CLOSE) {
+				battleRegions.remove(battleRegion);
+				context.getAdvisory().unregisterQueueStateListener(battleRegion.getID().getURI().toString());
+				CreateBattleRegion(context, battleRegion.getID().getType(), battleRegion.getID().getMasterID());
+			}
 		});
 	}
 
@@ -125,4 +145,11 @@ public class WorldService {
 
 		return response;
 	}
+	
+	private boolean isMatchID(ID id)
+    {
+        return id.getType() == IDType.Deathmath || 
+    		id.getType()  == IDType.TeamDeathmatch || 
+    		id.getType()  == IDType.Domination;
+    }
 }
