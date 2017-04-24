@@ -22,6 +22,13 @@
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
+    },
+    {
+      "listenerUri": "/travel/home",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
     }
   ]
 }

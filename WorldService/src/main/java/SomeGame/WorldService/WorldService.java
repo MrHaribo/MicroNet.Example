@@ -70,6 +70,14 @@ public class WorldService {
 				
 		return JoinWorld(context, userID, avatar.getRegionID(), avatarResponse.getData());
 	}
+	
+	@MessageListener(uri = "/travel/home")
+	public Response homestone(Context context, Request request) {
+		int userID = request.getParameters().getInt(ParameterCode.USER_ID);
+		Response avatarResponse = context.sendRequestBlocking("mn://avatar/current/get", request);
+		AvatarValues avatar = Serialization.deserialize(avatarResponse.getData(), AvatarValues.class);
+		return JoinWorld(context, userID, avatar.getHomeRegionID(), avatarResponse.getData());
+	}
 
 	@MessageListener(uri = "/travel")
 	public Response travel(Context context, Request request) {
