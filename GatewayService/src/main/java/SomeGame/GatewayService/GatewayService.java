@@ -51,6 +51,13 @@ public class GatewayService {
 			}
 		}
 	}
+	
+	@MessageListener(uri="/broadcast/event")
+	public void broadcastEvent(Context context, Request request) {
+		for (ClientConnection connection : connections.values()) {
+			gatewayPeer.sendRequest(URI.create(connection.getQueueURI() + "/event"), request);
+		}
+	}
 
 	private void clientDisconnected(Context context, String clientId) {
 		ClientConnection client = connections.remove(clientId);

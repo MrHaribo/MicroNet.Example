@@ -8,6 +8,13 @@
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
+    },
+    {
+      "listenerUri": "/broadcast/event",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
     }
   ]
 }

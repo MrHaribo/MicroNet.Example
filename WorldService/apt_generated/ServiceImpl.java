@@ -18,8 +18,8 @@ public class ServiceImpl {
 			WorldService service = new WorldService();
 	
 			peer.listen("/join", (Request request) -> service.joinWorld(context, request));
-peer.listen("/battles/all", (Request request) -> service.getAllBattles(context, request));
 peer.listen("/travel", (Request request) -> service.travel(context, request));
+peer.listen("/battles/all", (Request request) -> service.getAllBattles(context, request));
 
 			
 			System.out.println("WorldService started...");

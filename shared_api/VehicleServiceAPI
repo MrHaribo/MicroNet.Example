@@ -10,14 +10,7 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/current",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/available",
+      "listenerUri": "/weapon/unequip",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -31,7 +24,7 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/weapon/unequip",
+      "listenerUri": "/collection/remove",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -52,14 +45,21 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/collection/remove",
+      "listenerUri": "/add",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/add",
+      "listenerUri": "/available",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/current",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],

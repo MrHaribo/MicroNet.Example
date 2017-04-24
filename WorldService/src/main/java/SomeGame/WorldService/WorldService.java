@@ -16,6 +16,7 @@ import micronet.model.IDType;
 import micronet.model.ParameterCode;
 import micronet.model.RegionInstanceValues;
 import micronet.model.RegionValues;
+import micronet.model.VehicleValues;
 import micronet.network.Context;
 import micronet.network.IAdvisory;
 import micronet.network.IAdvisory.QueueState;
@@ -97,6 +98,8 @@ public class WorldService {
 		Response getRegionResponse = context.sendRequestBlocking("mn://region/get", getRegionRequest);
 		RegionValues battleRegion = Serialization.deserialize(getRegionResponse.getData(), RegionValues.class);
 		battleRegions.add(battleRegion);
+		
+		context.broadcastEvent("OnBattleRegionsChanged", Serialization.serialize(battleRegions));
 		
 		context.getAdvisory().registerQueueStateListener(battleRegion.getID().getURI().toString(), (QueueState state) -> {
 			if (state == QueueState.CLOSE) {
