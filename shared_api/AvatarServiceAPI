@@ -10,14 +10,21 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/takeoff",
+      "listenerUri": "/get",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/current/get",
+      "listenerUri": "/credits/add",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/delete",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -31,14 +38,7 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/current/set",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/land",
+      "listenerUri": "/current/get",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -59,14 +59,7 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/credits/add",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/current/name/get",
+      "listenerUri": "/land",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -80,7 +73,14 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/get",
+      "listenerUri": "/takeoff",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/current/name/get",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -94,7 +94,7 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/delete",
+      "listenerUri": "/current/set",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],

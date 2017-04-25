@@ -10,6 +10,7 @@ import micronet.annotation.MessageListener;
 import micronet.annotation.MessageService;
 import micronet.annotation.OnStart;
 import micronet.annotation.OnStop;
+import micronet.model.CredentialValues;
 import micronet.model.ParameterCode;
 import micronet.model.UserValues;
 import micronet.network.Context;
@@ -97,11 +98,16 @@ public class GatewayService {
 			case "mn://account/register":
 				return gatewayPeer.sendRequestBlocking(URI.create(userRequest), request);
 			case "mn://account/login":
+				CredentialValues credentials = Serialization.deserialize(request.getData(), CredentialValues.class);
+				if (isAlreadyLoggedIn(credentials))
+					return new Response(StatusCode.FORBIDDEN, "Someone with the same name already logged in");
+				
 				Response loginResponse = context.sendRequestBlocking(userRequest, request);
 				if (loginResponse.getStatus() == StatusCode.OK) {
 					UserValues user = Serialization.deserialize(loginResponse.getData(), UserValues.class);
 					connection.setAuthenticated(true);
 					connection.setUserId(user.getId());
+					connection.setCredentials(credentials);
 
 					context.getAdvisory().send("User.Connected", Integer.toString(connection.getUserId()));
 
@@ -121,5 +127,14 @@ public class GatewayService {
 			request.getParameters().set(ParameterCode.USER_ID, connection.getUserId());
 			return context.sendRequestBlocking(userRequest, request);
 		}
+	}
+	
+	private boolean isAlreadyLoggedIn(CredentialValues credentials) {
+		for (Map.Entry<String, ClientConnection> user : connections.entrySet()){
+			CredentialValues existingCredentials = user.getValue().getCredentials();
+			if (existingCredentials != null && existingCredentials.getUsername().equals(credentials.getUsername()))
+				return true;
+		}
+		return false;
 	}
 }
