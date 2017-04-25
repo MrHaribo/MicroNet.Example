@@ -3,14 +3,7 @@
   "serviceUri": "mn://avatar",
   "listeners": [
     {
-      "listenerUri": "/credits/remove",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/get",
+      "listenerUri": "/all",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -24,14 +17,35 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/delete",
+      "listenerUri": "/land",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/update",
+      "listenerUri": "/credits/remove",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/persist",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/current/update",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/delete",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -45,13 +59,6 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/all",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
       "listenerUri": "/create",
       "requestDataType": "String",
       "responseDataType": "String",
@@ -59,14 +66,7 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/land",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/update",
+      "listenerUri": "/current/set",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -94,7 +94,7 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/current/set",
+      "listenerUri": "/get",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],

@@ -61,10 +61,6 @@ public class WorldService {
 		
 		//Avatar is in an old battle
 		if (isMatchID(avatar.getRegionID())) {
-			Request setRegionRequest = new Request();
-			setRegionRequest.getParameters().set(ParameterCode.USER_ID, userID);
-			setRegionRequest.getParameters().set(ParameterCode.REGION_ID, avatar.getHomeRegionID());
-			context.sendRequest("mn://avatar/update", setRegionRequest);
 			return JoinWorld(context, userID, avatar.getHomeRegionID(), avatarResponse.getData());
 		}
 				
@@ -138,6 +134,7 @@ public class WorldService {
 		joinRequest.getParameters().set(ParameterCode.USER_ID, userID);
 		joinRequest.getParameters().set(ParameterCode.TOKEN, token.toString());
 
+		System.out.println("SENDING JOIN: " + regionID.getAddress() + "/join");
 		URI destination = URI.create(regionID.getAddress() + "/join");
 		Response joinResponse = context.sendRequestBlocking(destination.toString(), joinRequest);
 		if (joinResponse.getStatus() != StatusCode.OK)
@@ -146,7 +143,7 @@ public class WorldService {
 		Request setRegionRequest = new Request();
 		setRegionRequest.getParameters().set(ParameterCode.USER_ID, userID);
 		setRegionRequest.getParameters().set(ParameterCode.REGION_ID, regionID.toString());
-		context.sendRequest("mn://avatar/update", setRegionRequest);
+		context.sendRequest("mn://avatar/current/update", setRegionRequest);
 
 		Response response = new Response(StatusCode.OK, avatarData);
 		response.getParameters().set(ParameterCode.REGION_ID, regionID.toString());

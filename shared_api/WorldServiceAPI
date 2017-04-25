@@ -3,20 +3,6 @@
   "serviceUri": "mn://world",
   "listeners": [
     {
-      "listenerUri": "/travel",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/join",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
       "listenerUri": "/battles/all",
       "requestDataType": "String",
       "responseDataType": "String",
@@ -24,7 +10,21 @@
       "responseParameters": []
     },
     {
+      "listenerUri": "/travel",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
       "listenerUri": "/travel/home",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/join",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],

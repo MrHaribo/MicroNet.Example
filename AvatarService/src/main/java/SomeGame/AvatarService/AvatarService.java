@@ -104,7 +104,9 @@ public class AvatarService {
 		if (avatar.isLanded())
 			return new Response(StatusCode.BAD_REQUEST, "Already Landed");
 
+		
 		ID regionID = avatar.getRegionID();
+		System.out.println("SENDING LAND: " + regionID.getQueueAddress("/land").toString());
 		Response landResponse = context.sendRequestBlocking(regionID.getQueueAddress("/land").toString(), request);
 
 		if (landResponse.getStatus() != StatusCode.OK)
@@ -229,7 +231,7 @@ public class AvatarService {
 		return new Response(StatusCode.OK);
 	}
 
-	@MessageListener(uri="/update")
+	@MessageListener(uri="/current/update")
 	public void updateAvatar(Context context, Request request) {
 		int userID = request.getParameters().getInt(ParameterCode.USER_ID);
 
@@ -246,19 +248,20 @@ public class AvatarService {
 		});
 	}
 	
-	@MessageListener(uri="/update")
+	@MessageListener(uri="/persist")
 	public void persistAvatar(Context context, Request request) {
 		int userID = request.getParameters().getInt(ParameterCode.USER_ID);
 		String avatarName = request.getParameters().getString(ParameterCode.NAME);
 
 		database.updateAvatar(userID, avatarName, (AvatarValues avatar) -> {
+			if (request.getParameters().containsParameter(ParameterCode.REGION_ID))
+				avatar.setRegionID(new ID(request.getParameters().getString(ParameterCode.REGION_ID)));
 			if (request.getParameters().containsParameter(ParameterCode.POSITION))
 				avatar.setPosition(request.getParameters().getVector2(ParameterCode.POSITION));
 			return avatar;
 		});
 	}
-
-
+	
 	private AvatarValues getCurrentAvatar(int userID) {
 		String avatarName = avatars.get(userID);
 		return database.getAvatar(userID, avatarName);
