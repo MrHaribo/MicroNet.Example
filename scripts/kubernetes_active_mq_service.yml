@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: activemq-deployment-service
+spec:
+  selector:
+    app: activemq
+  ports:
+    - protocol: TCP
+      port: 61616
+      targetPort: 61616

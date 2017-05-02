@@ -1,16 +1,13 @@
-FROM maven:latest
+FROM openjdk:latest
 
 RUN mkdir --parents /usr/src/app
 WORKDIR /usr/src/app
 
 ENV message_broker_address="activemq:61616"
 
-# selectively add the POM file
-ADD pom.xml /usr/src/app/
-# get all the downloads out of the way
-RUN mvn verify clean --fail-never
-
 ADD . /usr/src/app
-RUN mvn verify
 
-CMD java -cp ./target/classes:./target/lib/* ServiceImpl
+RUN wget https://raw.githubusercontent.com/MrHaribo/MicroNet.Example/master/wait-for-it.sh
+RUN chmod +x wait-for-it.sh
+
+CMD ./wait-for-it.sh activemq:61616 -- java -cp ./target/classes:./target/lib/* ServiceImpl

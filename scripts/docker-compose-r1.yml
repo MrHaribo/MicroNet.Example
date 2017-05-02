@@ -1,0 +1,129 @@
+version: "3"
+services:
+
+# Gateway Service Definition
+
+  gateway-service:
+    build: 
+      context: ./GatewayService
+      dockerfile: Deploy.Dockerfile
+    volumes:
+      - ./wait-for-it.sh:/wait-for-it.sh
+    links:
+      - activemq
+    command: "/wait-for-it.sh activemq:61616 -- java -cp ./target/classes:./target/lib/* ServiceImpl"
+
+# World Service Definition
+
+  world-service:
+    build: 
+      context: ./WorldService
+      dockerfile: Deploy.Dockerfile
+    volumes:
+      - ./wait-for-it.sh:/wait-for-it.sh
+    links:
+      - activemq
+    command: "/wait-for-it.sh activemq:61616 -- java -cp ./target/classes:./target/lib/* ServiceImpl"
+
+# Vehicle Service Definition
+
+  vehicle-service:
+    build: 
+      context: ./VehicleService
+      dockerfile: Deploy.Dockerfile
+    volumes:
+      - ./wait-for-it.sh:/wait-for-it.sh
+    links:
+      - activemq
+      - vehicle-db
+    command: "/wait-for-it.sh activemq:61616 -- /wait-for-it.sh vehicle-db:5432 -- java -cp ./target/classes:./target/lib/* ServiceImpl"
+
+  vehicle-db:
+    build: ./VehicleDB
+
+# Shop Service Definition
+
+  shop-service:
+    build: 
+      context: ./ShopService
+      dockerfile: Deploy.Dockerfile
+    volumes:
+      - ./wait-for-it.sh:/wait-for-it.sh
+    links:
+      - activemq
+      - shop-db
+    command: "/wait-for-it.sh activemq:61616 -- /wait-for-it.sh shop-db:5432 -- java -cp ./target/classes:./target/lib/* ServiceImpl"
+
+  shop-db:
+    build: ./ShopDB
+
+# Region Service Definition
+
+  region-service:
+    build: 
+      context: ./RegionService
+      dockerfile: Deploy.Dockerfile
+    volumes:
+      - ./wait-for-it.sh:/wait-for-it.sh
+    links:
+      - activemq
+      - region-db
+    command: "/wait-for-it.sh activemq:61616 -- /wait-for-it.sh region-db:5432 -- java -cp ./target/classes:./target/lib/* ServiceImpl"
+
+  region-db:
+    build: ./RegionDB
+
+# Item Service Definition
+
+  item-service:
+    build: 
+      context: ./ItemService
+      dockerfile: Deploy.Dockerfile
+    volumes:
+      - ./wait-for-it.sh:/wait-for-it.sh
+    links:
+      - activemq
+      - item-db
+    command: "/wait-for-it.sh activemq:61616 -- /wait-for-it.sh item-db:5432 -- java -cp ./target/classes:./target/lib/* ServiceImpl"
+
+  item-db:
+    build: ./ItemDB
+
+# Avatar Service Definition
+
+  avatar-service:
+    build: 
+      context: ./AvatarService
+      dockerfile: Deploy.Dockerfile
+    volumes:
+      - ./wait-for-it.sh:/wait-for-it.sh
+    links:
+      - activemq
+      - avatar-db
+    command: "/wait-for-it.sh activemq:61616 -- /wait-for-it.sh avatar-db:5432 -- java -cp ./target/classes:./target/lib/* ServiceImpl"
+  
+  avatar-db:
+    build: ./AvatarDB
+  
+# Account Service Definition
+
+  account-service:
+    build: 
+      context: ./AccountService
+      dockerfile: Deploy.Dockerfile
+    volumes:
+      - ./wait-for-it.sh:/wait-for-it.sh
+    links:
+      - activemq
+      - account-db
+    command: "/wait-for-it.sh activemq:61616 -- /wait-for-it.sh account-db:5432 -- java -cp ./target/classes:./target/lib/* ServiceImpl"
+
+  account-db:
+    build: ./AccountDB
+
+# Message Broker
+   
+  activemq:
+    image: "webcenter/activemq:latest"
+    ports:
+      - 40000:61616

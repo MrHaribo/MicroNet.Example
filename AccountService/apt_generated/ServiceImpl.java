@@ -17,8 +17,8 @@ public class ServiceImpl {
 	
 			AccountService service = new AccountService();
 	
-			peer.listen("/login", (Request request) -> service.onLogin(context, request));
-peer.listen("/register", (Request request) -> service.onRegister(context, request));
+			peer.listen("/register", (Request request) -> service.onRegister(context, request));
+peer.listen("/login", (Request request) -> service.onLogin(context, request));
 
 			
 			System.out.println("AccountService started...");
