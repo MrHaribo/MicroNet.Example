@@ -1,0 +1,11 @@
+minikube start --vm-driver="virtualbox" --show-libmachine-logs --alsologtostderr
+
+minikube start --vm-driver="hyperv" --hyperv-virtual-switch="MicroNetVirtualSwitch" --v=7 --alsologtostderr
+
+minikube start --vm-driver="hyperv" --v=7 --alsologtostderr
+
+curl http://localhost:8001/api/v1/proxy/namespaces/default/pods/kubernetes-bootcamp-3271566451-56w1h/
+
+minikube start --network-plugin=cni --container-runtime=rkt --iso-url=https://github.com/coreos/minikube-iso/releases/download/v0.0.5/minikube-v0.0.5.iso
+
+https://raw.githubusercontent.com/MrHaribo/MicroNet.Example/master/wait-for-it.sh
