@@ -1,23 +1,16 @@
 {
-  "serviceName": "ShopService",
-  "serviceUri": "mn://shop",
+  "serviceName": "PortService",
+  "serviceUri": "mn://port",
   "listeners": [
     {
-      "listenerUri": "/shops/add",
+      "listenerUri": "/reserve",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/shops/get",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/buy",
+      "listenerUri": "/release",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],

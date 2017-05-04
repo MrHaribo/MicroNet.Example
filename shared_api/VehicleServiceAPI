@@ -3,6 +3,13 @@
   "serviceUri": "mn://vehicle",
   "listeners": [
     {
+      "listenerUri": "/configuration/all/upload",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
       "listenerUri": "/current",
       "requestDataType": "String",
       "responseDataType": "String",
@@ -10,28 +17,7 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/weapon/unequip",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/add",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
       "listenerUri": "/collection/remove",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/available",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -52,14 +38,14 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/configuration/all/upload",
+      "listenerUri": "/weapon/unequip",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/collection/create",
+      "listenerUri": "/available",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -67,6 +53,20 @@
     },
     {
       "listenerUri": "/sell",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/add",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/collection/create",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],

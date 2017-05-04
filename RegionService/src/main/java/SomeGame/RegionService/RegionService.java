@@ -123,8 +123,13 @@ public class RegionService {
 	public RegionInstanceValues openRegion(Context context, ID regionID) {
 		RegionValues region = database.getMasterRegion(regionID.getMasterID());
 		region.setID(regionID);
+		
+		Response portResponse = context.sendRequestBlocking("mn://port/reserve", new Request());
+		if (portResponse.getStatus() != StatusCode.OK)
+			return null;
 
 		Request openRequest = new Request(Serialization.serialize(region));
+		openRequest.getParameters().set(ParameterCode.PORT, portResponse.getData());
 		Response openResponse = context.sendRequestBlocking("mn://freeinstance", openRequest, 60000);
 		if (openResponse.getStatus() != StatusCode.OK)
 			return null;
@@ -148,6 +153,7 @@ public class RegionService {
 		context.getAdvisory().registerQueueStateListener(regionID.getURI().toString(), (QueueState state) -> {
 			if (state == IAdvisory.QueueState.CLOSE && openRegions.containsKey(regionID.toString())) {
 				context.getAdvisory().unregisterQueueStateListener(regionID.getURI().toString());
+				context.sendRequest("mn://port/release", new Request(Integer.toString(openRegions.get(regionID.toString()).getPort())));
 				openRegions.remove(regionID.toString());
 				System.out.println(
 						"Open region removed: " + regionID.getURI().toString() + "regions open: " + openRegions.size());
