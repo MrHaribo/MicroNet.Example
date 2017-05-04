@@ -79,21 +79,21 @@ public class AvatarService {
 	}
 
 	@MessageListener(uri="/reputation/add")
-	public Response addReputation(Context context, Request request) {
+	public void addReputation(Context context, Request request) {
 		int userID = request.getParameters().getInt(ParameterCode.USER_ID);
 		int attitude = request.getParameters().getInt(ParameterCode.FACTION);
 		float amount = Float.parseFloat(request.getData());
 
 		if (!avatars.containsKey(userID))
-			return new Response(StatusCode.BAD_REQUEST, "No Avatar selected");
+			return;
 		String avatarName = avatars.get(userID);
 
 		database.updateAvatar(userID, avatarName, (AvatarValues tmp) -> {
 			tmp.getFaction().addReputation(attitude, amount);
 			return tmp;
 		});
-
-		return new Response(StatusCode.OK);
+		
+		sendReputationChangedEvent(context, userID, avatarName);
 	}
 	
 	@MessageListener(uri="/land")
@@ -271,5 +271,11 @@ public class AvatarService {
 		AvatarValues[] avatars = database.getAvatars(userID);
 		String data = Serialization.serialize(avatars);
 		context.sendEvent(userID, "OnAvailableAvatarsChanged", data);
+	}
+	
+	private void sendReputationChangedEvent(Context context, int userID, String avatarName) {
+		AvatarValues avatar = database.getAvatar(userID, avatarName);
+		String data = Serialization.serialize(avatar.getFaction());
+		context.sendEvent(userID, "OnReputationChanged", data);
 	}
 }
