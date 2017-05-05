@@ -10,14 +10,14 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/travel/home",
+      "listenerUri": "/battles/all",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/battles/all",
+      "listenerUri": "/travel/home",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],

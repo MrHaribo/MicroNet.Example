@@ -122,6 +122,10 @@ public class GatewayService {
 		} else {
 			if (userRequest.equals("mn://account/login"))
 				return new Response(StatusCode.FORBIDDEN, "Already logged in");
+			if (userRequest.equals("mn://logout/")) {
+				clientDisconnected(context, connection.getConnectionId());
+				return new Response(StatusCode.OK, "Logged Out");
+			}
 
 			System.out.println("Request from Id: " + connection.getUserId());
 			request.getParameters().set(ParameterCode.USER_ID, connection.getUserId());

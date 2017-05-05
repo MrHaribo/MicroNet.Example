@@ -194,7 +194,7 @@ public class AvatarService {
 
 		if (avatar.getName() == null || avatar.getName().length() < 2)
 			return new Response(StatusCode.BAD_REQUEST);
-		avatar.setCredits(100000);
+		avatar.setCredits(1000);
 
 		String faction = request.getParameters().getString(ParameterCode.FACTION);
 		if (faction.equals("Rebel")) {
@@ -216,6 +216,7 @@ public class AvatarService {
 
 		Request createCollectionRequest = new Request(avatar.getName());
 		createCollectionRequest.getParameters().set(ParameterCode.USER_ID, userID);
+		createCollectionRequest.getParameters().set(ParameterCode.FACTION, faction);
 		context.sendRequest("mn://vehicle/collection/create", createCollectionRequest);
 
 		return new Response(StatusCode.OK);

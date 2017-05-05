@@ -1,5 +1,8 @@
 package SomeGame.VehicleService;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import micronet.annotation.MessageListener;
 import micronet.annotation.MessageService;
 import micronet.annotation.OnStart;
@@ -19,12 +22,15 @@ import micronet.serialization.Serialization;
 public class VehicleService {
 	private VehicleDatabase database;
 
-	private VehicleValues defaultVehicle;
+	private Map<String, VehicleValues> defaultVehicles;
 
 	@OnStart
 	public void onStart(Context context) {
 		database = new VehicleDatabase();
-		defaultVehicle = database.loadVehicleConfiguration("Delta");
+		defaultVehicles = new HashMap<>();
+		defaultVehicles.put("Rebel", database.loadVehicleConfiguration("Mice"));
+		defaultVehicles.put("Confederate", database.loadVehicleConfiguration("Beetle"));
+		defaultVehicles.put("Neutral", database.loadVehicleConfiguration("Drone"));
 	}
 
 	@OnStop
@@ -120,8 +126,9 @@ public class VehicleService {
 	@MessageListener(uri = "/collection/create")
 	public Response createVehicleCollection(Context context, Request request) {
 		int userID = request.getParameters().getInt(ParameterCode.USER_ID);
+		String faction = request.getParameters().getString(ParameterCode.FACTION);
 		database.createVehicleCollection(userID, request.getData());
-		database.addVehicle(userID, request.getData(), defaultVehicle);
+		database.addVehicle(userID, request.getData(), defaultVehicles.get(faction));
 		return new Response(StatusCode.OK);
 	}
 
