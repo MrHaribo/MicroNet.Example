@@ -3,14 +3,14 @@
   "serviceUri": "mn://port",
   "listeners": [
     {
-      "listenerUri": "/reserve",
+      "listenerUri": "/release",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/release",
+      "listenerUri": "/reserve",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],

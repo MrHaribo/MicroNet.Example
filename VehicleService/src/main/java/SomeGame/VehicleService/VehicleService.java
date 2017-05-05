@@ -112,8 +112,11 @@ public class VehicleService {
 		Response avatarQuery = context.sendRequestBlocking("mn://avatar/current/name/get", request);
 		String avatarName = avatarQuery.getData();
 		VehicleValues[] vehicles = database.getVehicles(userID, avatarName);
+		
 		String data = Serialization.serialize(vehicles);
-		return new Response(StatusCode.OK, data);
+		Response response = new Response(StatusCode.OK, data);
+		response.getParameters().set(ParameterCode.INDEX, database.getCurrentVehicleIndex(userID, avatarName));
+		return response;
 	}
 
 	@MessageListener(uri = "/collection/remove")
@@ -174,7 +177,7 @@ public class VehicleService {
 
 		int currentVehicleIndex = database.getCurrentVehicleIndex(userID, avatar.getName());
 		database.updateVehicle(userID, avatar.getName(), currentVehicleIndex, vehicle);
-		sendVehicleChangedEvent(context, userID, vehicle);
+		sendVehicleChangedEvent(context, userID, avatar.getName());
 		return new Response(StatusCode.OK);
 	}
 
@@ -221,23 +224,22 @@ public class VehicleService {
 		}
 		int currentVehicleIndex = database.getCurrentVehicleIndex(userID, avatar.getName());
 		database.updateVehicle(userID, avatar.getName(), currentVehicleIndex, vehicle);
-		sendVehicleChangedEvent(context, userID, vehicle);
+		sendVehicleChangedEvent(context, userID, avatar.getName());
 		return new Response(StatusCode.OK);
 	}
 
 	private void sendVehicleChangedEvent(Context context, int userID, String avatarName) {
 		VehicleValues vehicle = database.getCurrentVehicle(userID, avatarName);
-		context.sendEvent(userID, "OnVehicleChanged", Serialization.serialize(vehicle));
-	}
-
-	private void sendVehicleChangedEvent(Context context, int userID, VehicleValues vehicle) {
-		context.sendEvent(userID, "OnVehicleChanged", Serialization.serialize(vehicle));
+		Request eventRequest = new Request(Serialization.serialize(vehicle));
+		eventRequest.getParameters().set(ParameterCode.INDEX, database.getCurrentVehicleIndex(userID, avatarName));
+		context.sendEvent(userID, "OnVehicleChanged", eventRequest);
 	}
 
 	private void sendAvailableVehiclesChangedEvent(Context context, int userID, String name) {
-		// TODO: DOnt serialize whole ship list, only delta
+		// TODO: Don't serialize whole ship list, only delta
 		VehicleValues[] vehicles = database.getVehicles(userID, name);
-		String data = Serialization.serialize(vehicles);
-		context.sendEvent(userID, "OnAvailableVehiclesChanged", data);
+		Request eventRequest = new Request(Serialization.serialize(vehicles));
+		eventRequest.getParameters().set(ParameterCode.INDEX, database.getCurrentVehicleIndex(userID, name));
+		context.sendEvent(userID, "OnAvailableVehiclesChanged", eventRequest);
 	}
 }
