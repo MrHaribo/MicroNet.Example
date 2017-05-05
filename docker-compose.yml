@@ -54,6 +54,14 @@ services:
   item-db:
     image: somegame/item-db
     build: ./ItemDB
+    
+  # World Service Definition
+
+  port-service:
+    image: somegame/port-service
+    build: ./PortService
+    links:
+      - activemq
 
 # Region Service Definition
 
