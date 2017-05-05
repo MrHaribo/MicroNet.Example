@@ -15,6 +15,7 @@
 	<module>AvatarService</module>
 	<module>GatewayService</module>
 	<module>ItemService</module>
+	<module>PortService</module>
 	<module>RegionService</module>
 	<module>ShopService</module>
 	<module>VehicleService</module>
