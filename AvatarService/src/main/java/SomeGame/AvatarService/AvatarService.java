@@ -42,6 +42,13 @@ public class AvatarService {
 		database.shutdown();
 	}
 	
+	@MessageListener(uri="/credits/balance")
+	public Response balanceCredits(Context context, Request request) {
+		int userID = request.getParameters().getInt(ParameterCode.USER_ID);
+		AvatarValues avatar = getCurrentAvatar(userID);
+		return new Response(StatusCode.OK, Integer.toString(avatar.getCredits()));
+	}
+	
 	@MessageListener(uri="/credits/add")
 	public Response addCredits(Context context, Request request) {
 		int userID = request.getParameters().getInt(ParameterCode.USER_ID);
