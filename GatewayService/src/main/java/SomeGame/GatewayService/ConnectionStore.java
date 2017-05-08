@@ -1,0 +1,78 @@
+package SomeGame.GatewayService;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.couchbase.client.java.Bucket;
+import com.couchbase.client.java.Cluster;
+import com.couchbase.client.java.CouchbaseCluster;
+import com.couchbase.client.java.document.JsonDocument;
+import com.couchbase.client.java.document.json.JsonArray;
+import com.couchbase.client.java.document.json.JsonObject;
+import com.couchbase.client.java.query.N1qlQuery;
+import com.couchbase.client.java.query.N1qlQueryResult;
+import com.couchbase.client.java.query.N1qlQueryRow;
+
+import micronet.serialization.Serialization;
+
+public class ConnectionStore {
+	
+	private Cluster cluster;
+	private Bucket bucket;
+
+	public ConnectionStore() {
+		cluster = CouchbaseCluster.create("localhost");
+		bucket = cluster.openBucket("user_connections");
+        bucket.bucketManager().createN1qlPrimaryIndex(true, false);
+	}
+	
+	public Connection get(String connectionID) {
+		JsonDocument connectionDoc = bucket.get(connectionID);
+		if (connectionDoc == null)
+			return null;
+		return Serialization.deserialize(connectionDoc.content().toString(), Connection.class);
+	}
+	
+	public Connection get(int userID) {
+
+        N1qlQueryResult result = bucket.query(
+            N1qlQuery.parameterized("SELECT connectionID, userID FROM user_connections WHERE userID=$1",
+            JsonArray.from(userID))
+        );
+
+        for (N1qlQueryRow row : result) {
+        	System.out.println(row);
+        	return Serialization.deserialize(row.value().toString(), Connection.class);
+        }
+        return null;
+	}
+	
+	public List<Connection> all() {
+
+        N1qlQueryResult result = bucket.query(
+            N1qlQuery.simple("SELECT connectionID, userID FROM user_connections")
+        );
+
+        List<Connection> connections = new ArrayList<>();
+        for (N1qlQueryRow row : result) {
+        	System.out.println(row);
+        	connections.add(Serialization.deserialize(row.value().toString(), Connection.class));
+        }
+        return connections;
+	}
+	
+	public Connection add(String connectionID, int userID) {
+		//TODO: Add Timeout for Connections (evtl with Touch)
+        System.out.println("Add Player Connection: " + connectionID);
+		Connection connection = new Connection(connectionID, userID);
+        JsonObject connectionObj = JsonObject.fromJson(Serialization.serialize(connection));
+        bucket.insert(JsonDocument.create(connectionID, connectionObj));
+        
+        return connection;
+	}
+
+	public void remove(String connectionID) {
+		System.out.println("Remove Player Connection: " + connectionID);
+		bucket.remove(connectionID);
+	}
+}

@@ -68,6 +68,6 @@ public class AccountService {
 			return new Response(StatusCode.NOT_FOUND);
 		if (!credentials.getPassword().equals(user.getCredentials().getPassword()))
 			return new Response(StatusCode.UNAUTHORIZED);
-		return new Response(StatusCode.OK, Serialization.serialize(user));
+		return new Response(StatusCode.OK, Integer.toString(user.getId()));
 	}
 }

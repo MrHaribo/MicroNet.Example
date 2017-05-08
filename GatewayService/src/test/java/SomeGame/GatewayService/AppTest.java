@@ -35,4 +35,16 @@ public class AppTest
     {
         assertTrue( true );
     }
+    
+	public void testLogin() {
+//		CredentialValues creds = new CredentialValues();
+//		creds.setUsername("");
+//		creds.setPassword("");
+//		
+//		Request r = new Request();
+//		r.getParameters().set(ParameterCode.USER_REQUEST, "mn://account/login");
+//		r.setData(Serialization.serialize(creds));
+//		
+//		clientRequest(context, "connID42x", r);
+	}
 }

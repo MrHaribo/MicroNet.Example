@@ -17,8 +17,8 @@ public class ServiceImpl {
 	
 			GatewayService service = new GatewayService();
 	
-			peer.listen("/forward/event", (Request request) -> service.forwardEvent(context, request));
-peer.listen("/broadcast/event", (Request request) -> service.broadcastEvent(context, request));
+			peer.listen("/broadcast/event", (Request request) -> service.broadcastEvent(context, request));
+peer.listen("/forward/event", (Request request) -> service.forwardEvent(context, request));
 
 			
 			System.out.println("GatewayService started...");

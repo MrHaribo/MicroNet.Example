@@ -3,14 +3,14 @@
   "serviceUri": "mn://gateway",
   "listeners": [
     {
-      "listenerUri": "/forward/event",
+      "listenerUri": "/broadcast/event",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/broadcast/event",
+      "listenerUri": "/forward/event",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
