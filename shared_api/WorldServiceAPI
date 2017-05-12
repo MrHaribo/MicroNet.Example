@@ -3,7 +3,21 @@
   "serviceUri": "mn://world",
   "listeners": [
     {
-      "listenerUri": "/battles/all",
+      "listenerUri": "/instance/open",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/instance/add",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/instance/ready",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -18,6 +32,13 @@
     },
     {
       "listenerUri": "/travel",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/instance/reset",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],

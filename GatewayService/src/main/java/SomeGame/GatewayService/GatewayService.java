@@ -19,11 +19,10 @@ public class GatewayService {
 
 	private AMQGatewayPeer gatewayPeer; 
 	
-	private ConnectionStore connections;
+	private ConnectionStore connections = new ConnectionStore();
 
 	@OnStart
 	public void onStart(Context context) {
-		connections = new ConnectionStore();
 		gatewayPeer = new AMQGatewayPeer((String connectionID) -> connections.remove(connectionID));
 		gatewayPeer.listen(URI.create("mn://cmd"), (String clientId, Request request) -> clientCmd(context, clientId, request));
 		gatewayPeer.listen(URI.create("mn://request"), (String clientId, Request request) -> clientRequest(context, clientId, request));

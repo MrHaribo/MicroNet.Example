@@ -1,16 +1,16 @@
 {
-  "serviceName": "GatewayService",
-  "serviceUri": "mn://gateway",
+  "serviceName": "TestSimulationService",
+  "serviceUri": "mn://port",
   "listeners": [
     {
-      "listenerUri": "/forward/event",
+      "listenerUri": "/release",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/broadcast/event",
+      "listenerUri": "/reserve",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],

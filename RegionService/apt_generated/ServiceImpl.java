@@ -17,10 +17,10 @@ public class ServiceImpl {
 	
 			RegionService service = new RegionService();
 	
-			peer.listen("/open", (Request request) -> service.openRegion(context, request));
-peer.listen("/add", (Request request) -> service.addRegion(context, request));
-peer.listen("/all", (Request request) -> service.getAllRegions(context, request));
+			peer.listen("/all", (Request request) -> service.getAllRegions(context, request));
 peer.listen("/get", (Request request) -> service.getRegion(context, request));
+peer.listen("/battles/all", (Request request) -> service.getAllBattles(context, request));
+peer.listen("/add", (Request request) -> service.addRegion(context, request));
 
 			
 			System.out.println("RegionService started...");

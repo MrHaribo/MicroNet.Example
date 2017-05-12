@@ -17,9 +17,12 @@ public class ServiceImpl {
 	
 			WorldService service = new WorldService();
 	
-			peer.listen("/battles/all", (Request request) -> service.getAllBattles(context, request));
+			peer.listen("/instance/open", (Request request) -> service.openInstance(context, request));
+peer.listen("/instance/add", (Request request) -> service.addInstance(context, request));
+peer.listen("/instance/ready", (Request request) -> service.readyInstance(context, request));
 peer.listen("/join", (Request request) -> service.joinWorld(context, request));
 peer.listen("/travel", (Request request) -> service.travel(context, request));
+peer.listen("/instance/reset", (Request request) -> service.resetInstance(context, request));
 peer.listen("/travel/home", (Request request) -> service.homestone(context, request));
 
 			

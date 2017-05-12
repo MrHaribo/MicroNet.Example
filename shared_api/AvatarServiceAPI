@@ -3,6 +3,13 @@
   "serviceUri": "mn://avatar",
   "listeners": [
     {
+      "listenerUri": "/all",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
       "listenerUri": "/create",
       "requestDataType": "String",
       "responseDataType": "String",
@@ -10,21 +17,7 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/land",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/credits/balance",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/credits/add",
+      "listenerUri": "/delete",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -38,14 +31,14 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/credits/remove",
+      "listenerUri": "/reputation/add",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/reputation/add",
+      "listenerUri": "/current/get",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -66,6 +59,27 @@
       "responseParameters": []
     },
     {
+      "listenerUri": "/takeoff",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/credits/balance",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/land",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
       "listenerUri": "/current/name/get",
       "requestDataType": "String",
       "responseDataType": "String",
@@ -80,28 +94,14 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/takeoff",
+      "listenerUri": "/credits/remove",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/current/get",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/all",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/delete",
+      "listenerUri": "/credits/add",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],

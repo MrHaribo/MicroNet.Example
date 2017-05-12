@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>SomeGame</groupId>
-  <artifactId>WorldService</artifactId>
+  <artifactId>PortService</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>WorldService</name>
+  <name>PortService</name>
   <url>http://maven.apache.org</url>
 
 <properties>
@@ -75,11 +75,6 @@
 		<artifactId>micronet</artifactId>
  		<version>0.0.2-SNAPSHOT</version>
  		<type>pom</type>
-    </dependency>
-    <dependency>
-      <groupId>com.couchbase.client</groupId>
-      <artifactId>java-client</artifactId>
-      <version>2.4.5</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>

@@ -31,28 +31,7 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/change",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/add",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
       "listenerUri": "/sell",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/collection/create",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -67,6 +46,27 @@
     },
     {
       "listenerUri": "/weapon/unequip",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/change",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/collection/create",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/add",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],

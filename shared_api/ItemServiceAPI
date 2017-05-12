@@ -3,7 +3,21 @@
   "serviceUri": "mn://item",
   "listeners": [
     {
-      "listenerUri": "/inventory/add",
+      "listenerUri": "/inventory/refresh",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/inventory/all",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/inventory/move",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -11,13 +25,6 @@
     },
     {
       "listenerUri": "/inventory/set",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/inventory/get",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -38,21 +45,14 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/inventory/move",
+      "listenerUri": "/inventory/get",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/inventory/all",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/inventory/refresh",
+      "listenerUri": "/inventory/add",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
