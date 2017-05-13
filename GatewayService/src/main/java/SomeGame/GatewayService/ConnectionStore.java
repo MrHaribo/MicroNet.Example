@@ -27,7 +27,7 @@ public class ConnectionStore {
 	}
 	
 	public Connection get(String connectionID) {
-		JsonDocument connectionDoc = bucket.get(connectionID);
+		JsonDocument connectionDoc = bucket.getAndTouch(connectionID, 300);
 		if (connectionDoc == null)
 			return null;
 		return Serialization.deserialize(connectionDoc.content().toString(), Connection.class);
@@ -62,11 +62,17 @@ public class ConnectionStore {
 	}
 	
 	public Connection add(String connectionID, int userID) {
-		//TODO: Add Timeout for Connections (evtl with Touch)
+
+		Connection connection = get(userID);
+		if (connection != null) {
+			System.out.println("Removing old connection: " + connection.getConnectionID());
+			remove(connection.getConnectionID());
+		}
+		
         System.out.println("Add Player Connection: " + connectionID);
-		Connection connection = new Connection(connectionID, userID);
+		connection = new Connection(connectionID, userID);
         JsonObject connectionObj = JsonObject.fromJson(Serialization.serialize(connection));
-        bucket.insert(JsonDocument.create(connectionID, connectionObj));
+        bucket.insert(JsonDocument.create(connectionID, 300, connectionObj));
         
         return connection;
 	}

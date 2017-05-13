@@ -22,7 +22,7 @@ public class TestClient {
 		
 		Request loginRequest = new Request(Serialization.serialize(creds));
 		loginRequest.getParameters().set(ParameterCode.USER_REQUEST, "mn://account/login");
-		context.getPeer().sendRequest(URI.create("mn://request"), loginRequest, response -> onLogin(context, response));
+		context.getPeer().sendRequest(URI.create("mn://request3"), loginRequest, response -> onLogin(context, response));
 	}
 	
 	static void onLogin(Context context, Response response) {
@@ -48,7 +48,7 @@ public class TestClient {
 		Request joinRequest = new Request();
 		joinRequest.getParameters().set(ParameterCode.USER_REQUEST, "mn://world/travel/home");
 		context.getPeer().sendRequest(URI.create("mn://request"), joinRequest, travelResponse -> {
-			System.out.println("Login: " + travelResponse);
+			System.out.println("Avatar Select: " + travelResponse);
 		});
 	}
 }

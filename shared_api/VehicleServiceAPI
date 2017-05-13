@@ -3,7 +3,7 @@
   "serviceUri": "mn://vehicle",
   "listeners": [
     {
-      "listenerUri": "/weapon/equip",
+      "listenerUri": "/configuration/all/upload",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -17,13 +17,6 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/configuration/all/upload",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
       "listenerUri": "/available",
       "requestDataType": "String",
       "responseDataType": "String",
@@ -31,14 +24,7 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/sell",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/collection/remove",
+      "listenerUri": "/weapon/equip",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -59,7 +45,14 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/collection/create",
+      "listenerUri": "/collection/remove",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/sell",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -67,6 +60,13 @@
     },
     {
       "listenerUri": "/add",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/collection/create",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],

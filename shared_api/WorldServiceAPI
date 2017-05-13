@@ -3,28 +3,7 @@
   "serviceUri": "mn://world",
   "listeners": [
     {
-      "listenerUri": "/instance/open",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/instance/add",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/instance/ready",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/join",
+      "listenerUri": "/instance/close",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -38,14 +17,21 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/instance/reset",
+      "listenerUri": "/travel/home",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/travel/home",
+      "listenerUri": "/instance/open",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/join",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],

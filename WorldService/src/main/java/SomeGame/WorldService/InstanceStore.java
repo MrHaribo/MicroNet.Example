@@ -16,14 +16,12 @@ import com.couchbase.client.java.CouchbaseCluster;
 import com.couchbase.client.java.document.JsonDocument;
 import com.couchbase.client.java.document.json.JsonArray;
 import com.couchbase.client.java.document.json.JsonObject;
-import com.couchbase.client.java.error.DocumentAlreadyExistsException;
+import com.couchbase.client.java.error.subdoc.MultiMutationException;
+import com.couchbase.client.java.error.subdoc.PathExistsException;
 import com.couchbase.client.java.query.N1qlQuery;
 import com.couchbase.client.java.query.N1qlQueryResult;
 import com.couchbase.client.java.query.N1qlQueryRow;
 import com.couchbase.client.java.query.Statement;
-import com.couchbase.client.java.query.dsl.path.AsPath;
-import com.couchbase.client.java.search.SearchQuery;
-import com.couchbase.client.java.search.queries.ConjunctionQuery;
 import com.couchbase.client.java.subdoc.DocumentFragment;
 
 import micronet.model.ID;
@@ -38,109 +36,66 @@ public class InstanceStore {
 		bucket = cluster.openBucket("instance_connections");
         bucket.bucketManager().createN1qlPrimaryIndex(true, false);
 	}
-
-	public void addInstance(String instanceID) {
-		try {
-			JsonDocument doc = JsonDocument.create(instanceID, JsonObject.create().put("status", "free"));
-			System.out.println(bucket.insert(doc));
-		} catch (DocumentAlreadyExistsException e) {
-			System.err.println("Instance already exists: " + instanceID);
-			e.printStackTrace();
-		}
-	}
 	
-	public String reserveInstance(ID regionID) {
-
-		Statement query = select("meta(instance_connections).id").from(i(bucket.name())).where(x("status").eq(s("free")));
-		N1qlQueryResult result = bucket.query(N1qlQuery.simple(query));
-
-		String freeInstanceID = null;
-		for (N1qlQueryRow row : result) {
-			System.out.println(row);
-			freeInstanceID = row.value().getString("id");
-			break;
-		}
-		if (freeInstanceID == null)
-			return null;
-		
-		DocumentFragment<Mutation> mutation = bucket
-		    .mutateIn(freeInstanceID)
-		    .replace("status", "opening")
-		    .insert("regionID", regionID.toString())
-		    .execute();
-		System.out.println(mutation.toString());
-		
-		JsonObject regionObj = JsonObject.create()
-            .put("regionID", regionID.toString())
-            .put("instanceID", freeInstanceID)
+	public void addInstance(ID regionID) {
+        JsonObject instanceObj = JsonObject.create()
+            .put("status", "opening")
             .put("queuedUsers", JsonArray.empty());
-		
-		JsonDocument doc = JsonDocument.create(regionID.toString(), regionObj);
-		System.out.println(bucket.insert(doc));
-		
-		return freeInstanceID;
+        bucket.insert(JsonDocument.create(regionID.toString(), instanceObj));
 	}
 
-	public void readyInstance(String instanceID, String host, int port) {
+	public void openInstance(ID regionID, String instanceID, String host, int port) {
 		DocumentFragment<Mutation> mutation = bucket
-		    .mutateIn(instanceID)
+		    .mutateIn(regionID.toString())
 		    .replace("status", "open")
+		    .insert("instanceID", instanceID)
 		    .insert("host", host)
 		    .insert("port", port)
 		    .execute();
 		System.out.println(mutation.toString());
 	}
 
-	public void resetInstance(String instanceID) {
-		DocumentFragment<Mutation> mutation = bucket
-		    .mutateIn(instanceID)
-		    .replace("status", "free")
-		    .remove("regionID")
-		    .remove("host")
-		    .remove("port")
-		    .execute();
-		System.out.println(mutation.toString());
+	public void removeInstance(ID regionID) {
+		bucket.remove(regionID.toString());
 	}
 
 	public boolean isRegionOpen(ID regionID) {
 		JsonDocument regionDoc = bucket.get(regionID.toString());
 		if (regionDoc == null)
 			return false;
-		String instanceID = regionDoc.content().getString("instanceID");
-		if (instanceID == null)
-			return false;
-		JsonDocument instanceDoc = bucket.get(instanceID);
-		return instanceDoc.content().getString("status").equals("open");
+		return regionDoc.content().getString("status").equals("open");
 	}
 
 	public boolean isRegionOpening(ID regionID) {
 		JsonDocument regionDoc = bucket.get(regionID.toString());
 		if (regionDoc == null)
 			return false;
-		String instanceID = regionDoc.content().getString("instanceID");
-		if (instanceID == null)
-			return false;
-		JsonDocument instanceDoc = bucket.get(instanceID);
-		return instanceDoc.content().getString("status").equals("opening");
+		return regionDoc.content().getString("status").equals("opening");
 	}
 
 	public void queueUser(ID regionID, int userID) {
-		DocumentFragment<Mutation> mutation = bucket
-		    .mutateIn(regionID.toString())
-		    .arrayAddUnique("queuedUsers", userID)
-		    .execute();
-		System.out.println(mutation.toString());
+		try {
+			DocumentFragment<Mutation> mutation = bucket
+			    .mutateIn(regionID.toString())
+			    .arrayAddUnique("queuedUsers", userID)
+			    .execute();
+			System.out.println("Mutated: " + mutation.id());
+		} catch (MultiMutationException e) {
+			if (e.getCause().getClass() == PathExistsException.class)
+				System.err.println("Player is already queued: " + userID);
+			else
+				e.printStackTrace();
+		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Integer> getQueuedUsers(ID regionID) {
-
 		DocumentFragment<Lookup> result = bucket
 		    .lookupIn(regionID.toString())
 		    .get("queuedUsers")
 		    .execute();
-		
-		Integer[] users = result.content("queuedUsers", Integer[].class);
-		return Arrays.asList(users);
+		JsonArray users = result.content("queuedUsers", JsonArray.class);
+		return (List<Integer>)(Object)users.toList();
 	}
 
 	public String getRegionInstance(ID regionID) {
@@ -150,62 +105,24 @@ public class InstanceStore {
 		return regionDoc.content().getString("instanceID");
 	}
 	
-	public int getInstancePort(String instanceID) {
-		JsonDocument instanceDoc = bucket.get(instanceID);
+	public ID getRegionFromInstance(String instanceID) {
+		Statement query = select("meta(instance_connections).id").from(i(bucket.name())).where(x("instanceID").eq(s(instanceID)));
+        N1qlQueryResult result = bucket.query(N1qlQuery.simple(query));
+		
+        for (N1qlQueryRow row : result) {
+        	return new ID(row.value().getString("id"));
+        }
+
+		return null;
+	}
+	
+	public int getInstancePort(ID regionID) {
+		JsonDocument instanceDoc = bucket.get(regionID.toString());
 		return instanceDoc.content().getInt("port");
 	}
 
-	public Object getInstanceHost(String instanceID) {
-		JsonDocument instanceDoc = bucket.get(instanceID);
+	public Object getInstanceHost(ID regionID) {
+		JsonDocument instanceDoc = bucket.get(regionID.toString());
 		return instanceDoc.content().getString("host");
 	}
-
-//	public Instance getInstance(String instanceID) {
-//		JsonDocument doc = bucket.get(instanceID);
-//		if (doc == null)
-//			return null;
-//		return Serialization.deserialize(doc.content().toString(), Instance.class);
-//	}
-//	
-//	public Instance getFreeInstance() {
-//        N1qlQueryResult result = bucket.query(
-//            N1qlQuery.simple("SELECT id, host, port, status FROM instance_connections WHERE status=0")
-//        );
-//
-//        for (N1qlQueryRow row : result) {
-//        	System.out.println(row);
-//        	return Serialization.deserialize(row.value().toString(), Instance.class);
-//        }
-//		return null;
-//	}
-//	
-//	public RegionInstance getRegion(ID regionID) {
-//		JsonDocument doc = bucket.get(regionID.toString());
-//		if (doc == null)
-//			return null;
-//		return Serialization.deserialize(doc.content().toString(), RegionInstance.class);
-//	}
-//	
-//	public void add(Instance instance) {
-//		System.out.println("Add Instance: " + instance.getID());
-//        bucket.insert(JsonDocument.create(instance.getID(), JsonObject.fromJson(Serialization.serialize(instance))));
-//
-//	}
-//	
-//	public void add(RegionInstance instance) {
-//		System.out.println("Add Instance: " + instance.getRegionID());
-//        bucket.insert(JsonDocument.create(instance.getRegionID(), JsonObject.fromJson(Serialization.serialize(instance))));
-//	}
-//
-//	public Instance remove(String id) {
-//		System.out.println("Remove Region Instance: " + id);
-//		JsonDocument doc = bucket.remove(id);
-//		if (doc == null)
-//			return null;
-//		return Serialization.deserialize(doc.content().toString(), Instance.class);
-//	}	
-//	
-//	public void UpdateRegion() {
-//		
-//	}
 }

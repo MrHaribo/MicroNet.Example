@@ -11,8 +11,8 @@ import micronet.model.AvatarValues;
 import micronet.model.ID;
 import micronet.model.IDType;
 import micronet.model.ParameterCode;
-import micronet.model.RegionValues;
 import micronet.network.Context;
+import micronet.network.IAdvisory;
 import micronet.network.Request;
 import micronet.network.Response;
 import micronet.network.StatusCode;
@@ -26,7 +26,18 @@ public class WorldService {
 	@OnStart
 	public void onStart(Context context) {
 		instanceStore = new InstanceStore();
+		
+		context.getAdvisory().registerConnectionStateListener((String id, IAdvisory.ConnectionState state) -> {
+			if (state == IAdvisory.ConnectionState.DISCONNECTED) {
+				ID regionID = instanceStore.getRegionFromInstance(id);
+				if (regionID != null) {
+					removeRegion(context, regionID);
+				}
+			}
+		});
 	}
+	
+
 	
 	@OnStop
 	public void onStop(Context context) {
@@ -40,9 +51,9 @@ public class WorldService {
 		
 		//Avatar is in an old battle
 		if (isMatchID(avatar.getRegionID())) {
-			return JoinWorld(context, userID, avatar.getHomeRegionID(), avatarResponse.getData());
+			return joinWorld(context, userID, avatar.getHomeRegionID(), avatarResponse.getData());
 		}
-		return JoinWorld(context, userID, avatar.getRegionID(), avatarResponse.getData());
+		return joinWorld(context, userID, avatar.getRegionID(), avatarResponse.getData());
 	}
 	
 	@MessageListener(uri = "/travel/home")
@@ -50,7 +61,7 @@ public class WorldService {
 		int userID = request.getParameters().getInt(ParameterCode.USER_ID);
 		Response avatarResponse = context.sendRequestBlocking("mn://avatar/current/get", request);
 		AvatarValues avatar = Serialization.deserialize(avatarResponse.getData(), AvatarValues.class);
-		return JoinWorld(context, userID, avatar.getHomeRegionID(), avatarResponse.getData());
+		return joinWorld(context, userID, avatar.getHomeRegionID(), avatarResponse.getData());
 	}
 
 	@MessageListener(uri = "/travel")
@@ -60,17 +71,10 @@ public class WorldService {
 		AvatarValues avatar = Serialization.deserialize(avatarResponse.getData(), AvatarValues.class);
 		if (avatar.isLanded())
 			return new Response(StatusCode.FORBIDDEN, "Must be in Space to Travel");
-		return JoinWorld(context, userID, new ID(request.getData()), avatarResponse.getData());
+		return joinWorld(context, userID, new ID(request.getData()), avatarResponse.getData());
 	}
-	
-	@MessageListener(uri = "/instance/add")
-	public Response addInstance(Context context, Request request) {
-		String instanceID = request.getData();
-		instanceStore.addInstance(instanceID);
-		return new Response(StatusCode.OK, "Instance added");
-	}
-	
-	@MessageListener(uri = "/instance/ready")
+
+	@MessageListener(uri = "/instance/open")
 	public Response readyInstance(Context context, Request request) {
 
 		String instanceID = request.getParameters().getString(ParameterCode.ID);
@@ -78,95 +82,71 @@ public class WorldService {
 		String host = request.getParameters().getString(ParameterCode.HOST);
 		int port = request.getParameters().getInt(ParameterCode.PORT);
 		
-		instanceStore.readyInstance(instanceID, host, port);
+		instanceStore.openInstance(new ID(regionID), instanceID, host, port);
 
 		//TODO: Notify Player that they can join
 		for (int userID : instanceStore.getQueuedUsers(new ID(regionID))) {
-			Response avatarResponse = context.sendRequestBlocking("mn://avatar/current/get", request);
 			
-			Response joinRegionResponse = JoinRegion(context, userID, new ID(regionID), avatarResponse.getData());
+			Request avatarRequest = new Request();
+			avatarRequest.getParameters().set(ParameterCode.USER_ID, userID);
+			Response avatarResponse = context.sendRequestBlocking("mn://avatar/current/get", avatarRequest);
+			
+			Response joinRegionResponse = joinRegion(context, userID, new ID(regionID), avatarResponse.getData());
 			
 			Request regionReadyRequest = new Request();
-			regionReadyRequest.getParameters().set(ParameterCode.REGION_ID, joinRegionResponse.getParameters().getString(ParameterCode.REGION_ID));
 			regionReadyRequest.getParameters().set(ParameterCode.TOKEN, joinRegionResponse.getParameters().getString(ParameterCode.TOKEN));
-			regionReadyRequest.getParameters().set(ParameterCode.HOST, joinRegionResponse.getParameters().getString(ParameterCode.HOST));
-			regionReadyRequest.getParameters().set(ParameterCode.PORT, joinRegionResponse.getParameters().getInt(ParameterCode.REGION_ID));
+			regionReadyRequest.getParameters().set(ParameterCode.REGION_ID, regionID);
+			regionReadyRequest.getParameters().set(ParameterCode.HOST, host);
+			regionReadyRequest.getParameters().set(ParameterCode.PORT, port);
 			context.sendEvent(userID, "OnRegionReady", regionReadyRequest);
 		}
 		
-		System.out.println("Region Opened: " + regionID);
+		System.out.println("Instance Opened: " + regionID + " on: " + instanceID);
 		return new Response(StatusCode.OK, "Instance Added");
 	}
 
 
-	@MessageListener(uri = "/instance/reset")
+	@MessageListener(uri = "/instance/close")
 	public Response resetInstance(Context context, Request request) {
-		
-		String instanceID = request.getParameters().getString(ParameterCode.ID);
-		
-		int instancePort = instanceStore.getInstancePort(instanceID);
-		context.sendRequest("mn://port/release", new Request(Integer.toString(instancePort)));
-		
-		instanceStore.resetInstance(instanceID);
-		return new Response(StatusCode.OK, "Instance Reused");
-	}
-	
-	@MessageListener(uri = "/instance/open")
-	public Response openInstance(Context context, Request request) {
-		
-		String instanceID = request.getParameters().getString(ParameterCode.ID);
 		String regionID = request.getParameters().getString(ParameterCode.REGION_ID);
-		
-		Response portResponse = context.sendRequestBlocking("mn://port/reserve", new Request());
-		if (portResponse.getStatus() != StatusCode.OK) 
-			return new Response(StatusCode.SERVICE_UNAVAILABLE, "No free port is available.");
-				
-		Response regionResponse = context.sendRequestBlocking("mn://region/get", new Request(regionID));
-		if (portResponse.getStatus() != StatusCode.OK) 
-			return new Response(StatusCode.NOT_FOUND, "Region unknown");
-		
-		RegionValues region = Serialization.deserialize(regionResponse.getData(), RegionValues.class);
-
-		Request instanceRequest = new Request(regionResponse.getData());
-		instanceRequest.getParameters().set(ParameterCode.PORT, portResponse.getData());
-		context.sendRequest("mn://" + instanceID + "/open", instanceRequest, response -> {
-			System.out.println("Open Response: " + response.getStatus() + " : " + response.getData());
-		});
-
-		return new Response(StatusCode.OK, "Started Instance Opening " + region.getID());
+		removeRegion(context, new ID(regionID));
+		return new Response(StatusCode.OK, "Instance Closed");
 	}
 
-	private Response JoinWorld(Context context, int userID, ID regionID, String avatarData) {
+	private Response joinWorld(Context context, int userID, ID regionID, String avatarData) {
 		// RegionID id = new RegionID(124554051589L);
 		// RegionValues region = new RegionValues(id);
 
 		System.out.println("World Join: " + regionID);
 
 		if (instanceStore.isRegionOpen(regionID)) {
-			return JoinRegion(context, userID, regionID, avatarData);
+			return joinRegion(context, userID, regionID, avatarData);
 		} else if (instanceStore.isRegionOpening(regionID)) {
 			instanceStore.queueUser(regionID, userID);
 		} else {
-			String instanceID = instanceStore.reserveInstance(regionID);
-			//TODO: Start new Instances
-			if (instanceID == null)
-				return new Response(StatusCode.SERVICE_UNAVAILABLE, "No free instance is available.");
+			Response regionResponse = context.sendRequestBlocking("mn://region/get", new Request(regionID.toString()));
+			if (regionResponse.getStatus() != StatusCode.OK) 
+				return new Response(StatusCode.NOT_FOUND, "Region unknown");
+			
+			Response portResponse = context.sendRequestBlocking("mn://port/reserve", new Request());
+			if (portResponse.getStatus() != StatusCode.OK)
+				return new Response(StatusCode.NO_CONTENT, "No free Ports available");
+			
+			instanceStore.addInstance(regionID);
 			instanceStore.queueUser(regionID, userID);
-
-			Request openRequest = new Request(regionID.toString());
-			openRequest.getParameters().set(ParameterCode.ID, instanceID);
+			
+			Request openRequest = new Request(regionResponse.getData());
 			openRequest.getParameters().set(ParameterCode.REGION_ID, regionID);
-			context.sendRequest("mn://world/instance/open", openRequest, openResponse -> { 
-				System.out.println("Region open: " + openResponse.toString());
+			openRequest.getParameters().set(ParameterCode.PORT, portResponse.getData());
+			context.sendRequest("mn://instance-open", openRequest, openResponse -> { 
+				System.out.println("Direct Region open Response: " + openResponse.toString());
 			});
 		}
 		return new Response(StatusCode.TEMPORARY_REDIRECT, "Wait for Region to be loaded"); 
 	}
 	
 
-	private Response JoinRegion(Context context, int userID, ID regionID, String avatarData) {
-		String regionInstanceID = instanceStore.getRegionInstance(regionID);
-
+	private Response joinRegion(Context context, int userID, ID regionID, String avatarData) {
 		// Generate PlayerToken (random UUIDs)
 		UUID token = UUID.randomUUID();
 		Request joinRequest = new Request(avatarData);
@@ -187,10 +167,16 @@ public class WorldService {
 		Response response = new Response(StatusCode.OK, avatarData);
 		response.getParameters().set(ParameterCode.REGION_ID, regionID.toString());
 		response.getParameters().set(ParameterCode.TOKEN, token.toString());
-		response.getParameters().set(ParameterCode.HOST, instanceStore.getInstanceHost(regionInstanceID));
-		response.getParameters().set(ParameterCode.PORT, instanceStore.getInstancePort(regionInstanceID));
+		response.getParameters().set(ParameterCode.HOST, instanceStore.getInstanceHost(regionID));
+		response.getParameters().set(ParameterCode.PORT, instanceStore.getInstancePort(regionID));
 
 		return response;
+	}
+	
+	private void removeRegion(Context context, ID regionID) {
+		int port = instanceStore.getInstancePort(regionID);
+		instanceStore.removeInstance(regionID);
+		context.sendRequest("mn://port/release", new Request(Integer.toString(port)));
 	}
 	
 	private boolean isMatchID(ID id)

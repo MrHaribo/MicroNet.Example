@@ -23,7 +23,7 @@ public class GatewayService {
 
 	@OnStart
 	public void onStart(Context context) {
-		gatewayPeer = new AMQGatewayPeer((String connectionID) -> connections.remove(connectionID));
+		gatewayPeer = new AMQGatewayPeer((String connectionID) -> {});// connections.remove(connectionID));
 		gatewayPeer.listen(URI.create("mn://cmd"), (String clientId, Request request) -> clientCmd(context, clientId, request));
 		gatewayPeer.listen(URI.create("mn://request"), (String clientId, Request request) -> clientRequest(context, clientId, request));
 	}
@@ -80,9 +80,6 @@ public class GatewayService {
 			Response loginResponse = context.sendRequestBlocking(userRequest, request);
 			if (loginResponse.getStatus() == StatusCode.OK) {
 				int userID = Serialization.deserialize(loginResponse.getData(), Integer.class);
-				connection = connections.get(userID);
-				if (connection != null)
-					return new Response(StatusCode.FORBIDDEN, "Already logged in");
 				connection = connections.add(connectionID, userID);
 				return new Response(StatusCode.OK);
 			}
