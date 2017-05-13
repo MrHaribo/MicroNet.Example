@@ -93,7 +93,7 @@ public class WorldService {
 			
 			Response joinRegionResponse = joinRegion(context, userID, new ID(regionID), avatarResponse.getData());
 			
-			Request regionReadyRequest = new Request();
+			Request regionReadyRequest = new Request(avatarResponse.getData());
 			regionReadyRequest.getParameters().set(ParameterCode.TOKEN, joinRegionResponse.getParameters().getString(ParameterCode.TOKEN));
 			regionReadyRequest.getParameters().set(ParameterCode.REGION_ID, regionID);
 			regionReadyRequest.getParameters().set(ParameterCode.HOST, host);
