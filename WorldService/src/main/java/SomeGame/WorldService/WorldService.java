@@ -31,9 +31,15 @@ public class WorldService {
 			if (state == IAdvisory.ConnectionState.DISCONNECTED) {
 				ID regionID = instanceStore.getRegionFromInstance(id);
 				if (regionID != null) {
-					removeRegion(context, regionID);
+					int port = instanceStore.getInstancePort(regionID);
+					instanceStore.removeInstance(regionID);
+					context.sendRequest("mn://port/release", new Request(Integer.toString(port)));
 				}
 			}
+		});
+		context.getAdvisory().listen("User.Disconnected", advisory -> {
+			int userID = Integer.parseInt(advisory);
+			instanceStore.unqueueUser(userID);
 		});
 	}
 	
@@ -82,6 +88,11 @@ public class WorldService {
 		String host = request.getParameters().getString(ParameterCode.HOST);
 		int port = request.getParameters().getInt(ParameterCode.PORT);
 		
+		if (!instanceStore.existsInstance(new ID(regionID))) {
+			context.sendRequest("mn://port/release", new Request(Integer.toString(port)));
+			return new Response(StatusCode.RESET_CONTENT, "Instance not used any longer");
+		}
+				
 		instanceStore.openInstance(new ID(regionID), instanceID, host, port);
 
 		//TODO: Notify Player that they can join
@@ -108,8 +119,11 @@ public class WorldService {
 
 	@MessageListener(uri = "/instance/close")
 	public Response resetInstance(Context context, Request request) {
-		String regionID = request.getParameters().getString(ParameterCode.REGION_ID);
-		removeRegion(context, new ID(regionID));
+		ID regionID = new ID(request.getParameters().getString(ParameterCode.REGION_ID));
+		int port = request.getParameters().getInt(ParameterCode.PORT);
+		
+		instanceStore.removeInstance(regionID);
+		context.sendRequest("mn://port/release", new Request(Integer.toString(port)));
 		return new Response(StatusCode.OK, "Instance Closed");
 	}
 
@@ -118,8 +132,12 @@ public class WorldService {
 		// RegionValues region = new RegionValues(id);
 
 		System.out.println("World Join: " + regionID);
+		instanceStore.unqueueUser(userID);
+		
+		// Check if player is waiting for another instance
 
 		if (instanceStore.isRegionOpen(regionID)) {
+			instanceStore.queueUser(regionID, userID);
 			return joinRegion(context, userID, regionID, avatarData);
 		} else if (instanceStore.isRegionOpening(regionID)) {
 			instanceStore.queueUser(regionID, userID);
@@ -128,18 +146,18 @@ public class WorldService {
 			if (regionResponse.getStatus() != StatusCode.OK) 
 				return new Response(StatusCode.NOT_FOUND, "Region unknown");
 			
+			instanceStore.addInstance(regionID);
+			instanceStore.queueUser(regionID, userID);
+			
 			Response portResponse = context.sendRequestBlocking("mn://port/reserve", new Request());
 			if (portResponse.getStatus() != StatusCode.OK)
 				return new Response(StatusCode.NO_CONTENT, "No free Ports available");
 			
-			instanceStore.addInstance(regionID);
-			instanceStore.queueUser(regionID, userID);
-			
 			Request openRequest = new Request(regionResponse.getData());
 			openRequest.getParameters().set(ParameterCode.REGION_ID, regionID);
 			openRequest.getParameters().set(ParameterCode.PORT, portResponse.getData());
-			context.sendRequest("mn://instance-open", openRequest, openResponse -> { 
-				System.out.println("Direct Region open Response: " + openResponse.toString());
+			context.sendRequest("mn://instance-open", openRequest, response-> { 
+				System.err.println("No free Instances available");
 			});
 		}
 		return new Response(StatusCode.TEMPORARY_REDIRECT, "Wait for Region to be loaded"); 
@@ -171,12 +189,6 @@ public class WorldService {
 		response.getParameters().set(ParameterCode.PORT, instanceStore.getInstancePort(regionID));
 
 		return response;
-	}
-	
-	private void removeRegion(Context context, ID regionID) {
-		int port = instanceStore.getInstancePort(regionID);
-		instanceStore.removeInstance(regionID);
-		context.sendRequest("mn://port/release", new Request(Integer.toString(port)));
 	}
 	
 	private boolean isMatchID(ID id)

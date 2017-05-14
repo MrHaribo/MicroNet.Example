@@ -27,7 +27,7 @@ public class ConnectionStore {
 	}
 	
 	public Connection get(String connectionID) {
-		JsonDocument connectionDoc = bucket.getAndTouch(connectionID, 300);
+		JsonDocument connectionDoc = bucket.getAndTouch(connectionID, 3000);
 		if (connectionDoc == null)
 			return null;
 		return Serialization.deserialize(connectionDoc.content().toString(), Connection.class);
@@ -72,7 +72,7 @@ public class ConnectionStore {
         System.out.println("Add Player Connection: " + connectionID);
 		connection = new Connection(connectionID, userID);
         JsonObject connectionObj = JsonObject.fromJson(Serialization.serialize(connection));
-        bucket.insert(JsonDocument.create(connectionID, 300, connectionObj));
+        bucket.insert(JsonDocument.create(connectionID, 3000, connectionObj));
         
         return connection;
 	}

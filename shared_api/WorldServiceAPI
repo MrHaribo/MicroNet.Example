@@ -3,7 +3,7 @@
   "serviceUri": "mn://world",
   "listeners": [
     {
-      "listenerUri": "/join",
+      "listenerUri": "/instance/open",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -17,14 +17,14 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/instance/open",
+      "listenerUri": "/travel/home",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/travel/home",
+      "listenerUri": "/join",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],

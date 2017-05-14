@@ -5,7 +5,6 @@ import static com.couchbase.client.java.query.dsl.Expression.i;
 import static com.couchbase.client.java.query.dsl.Expression.s;
 import static com.couchbase.client.java.query.dsl.Expression.x;
 
-import java.util.Arrays;
 import java.util.List;
 
 import com.couchbase.client.core.message.kv.subdoc.multi.Lookup;
@@ -55,6 +54,10 @@ public class InstanceStore {
 		System.out.println(mutation.toString());
 	}
 
+	public boolean existsInstance(ID regionID) {
+		return bucket.get(regionID.toString()) != null;
+	}
+	
 	public void removeInstance(ID regionID) {
 		bucket.remove(regionID.toString());
 	}
@@ -86,6 +89,40 @@ public class InstanceStore {
 			else
 				e.printStackTrace();
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void unqueueUser(int userID) {
+		Statement query = select("meta(instance_connections).id, queuedUsers")
+				.from(i(bucket.name()))
+				.where(x(userID).in(x("queuedUsers")));
+
+        N1qlQueryResult result = bucket.query(N1qlQuery.simple(query));
+		
+        String regionID = null;
+        JsonArray queuedUsers = null;
+        for (N1qlQueryRow row : result) {
+        	regionID = row.value().getString("id");
+        	queuedUsers = row.value().getArray("queuedUsers");
+        	break;
+        }
+        if (regionID == null)
+        	return;
+        
+        List<Integer> list = (List<Integer>)(Object)queuedUsers.toList();
+        list.remove((Integer)userID);
+
+        
+        if (list.size() == 0) {
+        	removeInstance(new ID(regionID));
+        } else {
+        	//TODO: Use Cas
+            queuedUsers = JsonArray.from(list);
+    		bucket
+			    .mutateIn(regionID.toString())
+			    .replace("queuedUsers", queuedUsers)
+			    .execute(); 
+        }
 	}
 	
 	@SuppressWarnings("unchecked")
