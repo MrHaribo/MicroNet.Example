@@ -3,28 +3,14 @@
   "serviceUri": "mn://vehicle",
   "listeners": [
     {
-      "listenerUri": "/collection/remove",
+      "listenerUri": "/collection/create",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/configuration/all/upload",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/current",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/weapon/equip",
+      "listenerUri": "/weapon/unequip",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -38,14 +24,21 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/collection/create",
+      "listenerUri": "/configuration/all/upload",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/weapon/unequip",
+      "listenerUri": "/change",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/weapon/equip",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -66,7 +59,14 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/change",
+      "listenerUri": "/current",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/collection/remove",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],

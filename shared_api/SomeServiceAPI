@@ -3,14 +3,14 @@
   "serviceUri": "mn://yourService",
   "listeners": [
     {
-      "listenerUri": "/yourListener/with/response",
+      "listenerUri": "/yourListener/simple",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/yourListener/simple",
+      "listenerUri": "/yourListener/with/response",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
