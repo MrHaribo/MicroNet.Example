@@ -10,14 +10,14 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/buy",
+      "listenerUri": "/shops/add",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/shops/add",
+      "listenerUri": "/buy",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],

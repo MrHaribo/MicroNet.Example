@@ -1,16 +1,16 @@
 {
-  "serviceName": "GatewayService",
-  "serviceUri": "mn://gateway",
+  "serviceName": "SomeService",
+  "serviceUri": "mn://yourService",
   "listeners": [
     {
-      "listenerUri": "/forward/event",
+      "listenerUri": "/yourListener/with/response",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/broadcast/event",
+      "listenerUri": "/yourListener/simple",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],

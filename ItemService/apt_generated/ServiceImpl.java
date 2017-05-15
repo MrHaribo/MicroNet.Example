@@ -17,14 +17,14 @@ public class ServiceImpl {
 	
 			ItemService service = new ItemService();
 	
-			peer.listen("/inventory/set", (Request request) -> service.setInventoryItem(context, request));
-peer.listen("/inventory/move", (Request request) -> service.moveInventoryItem(context, request));
-peer.listen("/inventory/create", (Request request) -> service.createInventory(context, request));
-peer.listen("/inventory/add", (Request request) -> service.addInventoryItem(context, request));
-peer.listen("/inventory/refresh", (Request request) -> service.refreshInventory(context, request));
-peer.listen("/inventory/all", (Request request) -> service.getInventory(context, request));
+			peer.listen("/inventory/move", (Request request) -> service.moveInventoryItem(context, request));
 peer.listen("/inventory/get", (Request request) -> service.getInventorItem(context, request));
+peer.listen("/inventory/add", (Request request) -> service.addInventoryItem(context, request));
+peer.listen("/inventory/all", (Request request) -> service.getInventory(context, request));
+peer.listen("/inventory/set", (Request request) -> service.setInventoryItem(context, request));
+peer.listen("/inventory/create", (Request request) -> service.createInventory(context, request));
 peer.listen("/inventory/remove", (Request request) -> service.removeFromInventory(context, request));
+peer.listen("/inventory/refresh", (Request request) -> service.refreshInventory(context, request));
 
 			
 			System.out.println("ItemService started...");
