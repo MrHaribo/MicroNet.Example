@@ -17,8 +17,8 @@ public class ServiceImpl {
 	
 			PortService service = new PortService();
 	
-			peer.listen("/release", (Request request) -> service.releasePort(context, request));
-peer.listen("/reserve", (Request request) -> service.reservePort(context, request));
+			peer.listen("/reserve", (Request request) -> service.reservePort(context, request));
+peer.listen("/release", (Request request) -> service.releasePort(context, request));
 
 			
 			System.out.println("PortService started...");

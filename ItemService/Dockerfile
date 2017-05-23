@@ -3,7 +3,7 @@ FROM openjdk:latest
 RUN mkdir --parents /usr/src/app
 WORKDIR /usr/src/app
 
-ENV database_address="item-db:5432"
+ENV database_address="itemdb:5432"
 ENV message_broker_address="activemq:61616"
 
 ADD . /usr/src/app
@@ -11,4 +11,4 @@ ADD . /usr/src/app
 RUN wget https://raw.githubusercontent.com/MrHaribo/MicroNet.Example/master/wait-for-it.sh
 RUN chmod +x wait-for-it.sh
 
-CMD ./wait-for-it.sh activemq:61616 -- ./wait-for-it.sh item-db:5432 -- java -cp ./target/classes:./target/lib/* ServiceImpl
+CMD ./wait-for-it.sh activemq:61616 -- ./wait-for-it.sh itemdb:5432 -- java -cp ./target/classes:./target/lib/* ServiceImpl

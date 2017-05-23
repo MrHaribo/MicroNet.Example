@@ -1,111 +1,63 @@
+---
 version: "3"
 services:
-
-# Message Broker
-   
   activemq:
-    image: "webcenter/activemq:latest"
+    image: "activemq"
+    build: "./activemq"
     ports:
-      - 40000:61616
-
-# Account Service Definition
-
-  account-service:
-    image: somegame/account-service
-    build: ./AccountService
+    - "61616:61616"
+  regionservice:
+    image: "regionservice"
+    build: "./RegionService"
     links:
-      - activemq
-      - account-db
-
-  account-db:
-    image: somegame/account-db
-    build: ./AccountDB
-    
-# Avatar Service Definition
-
-  avatar-service:
-    image: somegame/avatar-service
-    build: ./AvatarService
+    - "regiondb"
+  regiondb:
+    image: "regiondb"
+    build: "./RegionDB"
+  worldservice:
+    image: "worldservice"
+    build: "./WorldService"
+  vehicleservice:
+    image: "vehicleservice"
+    build: "./VehicleService"
     links:
-      - activemq
-      - avatar-db
-  
-  avatar-db:
-    image: somegame/avatar-db
-    build: ./AvatarDB
-    
-# Gateway Service Definition
-
-  gateway-service:
-    image: somegame/gateway-service
-    build: ./GatewayService
+    - "vehicledb"
+  itemdb:
+    image: "itemdb"
+    build: "./ItemDB"
+  gatewayservice:
+    image: "gatewayservice"
+    build: "./GatewayService"
+  avatardb:
+    image: "avatardb"
+    build: "./AvatarDB"
+  accountdb:
+    image: "accountdb"
+    build: "./AccountDB"
+  avatarservice:
+    image: "avatarservice"
+    build: "./AvatarService"
     links:
-      - activemq
-      
-# Item Service Definition
-
-  item-service:
-    image: somegame/item-service
-    build: ./ItemService
+    - "avatardb"
+  vehicledb:
+    image: "vehicledb"
+    build: "./VehicleDB"
+  shopservice:
+    image: "shopservice"
+    build: "./ShopService"
     links:
-      - activemq
-      - item-db
-    
-  item-db:
-    image: somegame/item-db
-    build: ./ItemDB
-    
-  # World Service Definition
-
-  port-service:
-    image: somegame/port-service
-    build: ./PortService
+    - "shopdb"
+  itemservice:
+    image: "itemservice"
+    build: "./ItemService"
     links:
-      - activemq
-
-# Region Service Definition
-
-  region-service:
-    image: somegame/region-service
-    build: ./RegionService
-    links:
-      - activemq
-      - region-db
-
-  region-db:
-    image: somegame/region-db
-    build: ./RegionDB
-      
-# Shop Service Definition
-
-  shop-service:
-    image: somegame/shop-service
-    build: ./ShopService
-    links:
-      - activemq
-      - shop-db
-
-  shop-db:
-    image: somegame/shop-db
-    build: ./ShopDB
-    
-# Vehicle Service Definition
-
-  vehicle-service:
-    image: somegame/vehicle-service
-    build: ./VehicleService
-    links:
-      - activemq
-      - vehicle-db
-
-  vehicle-db:
-    image: somegame/vehicle-db
-    build: ./VehicleDB
-    
-# World Service Definition
-
-  world-service:
-    image: somegame/world-service
-    build: ./WorldService
-    links:
-      - activemq
+    - "itemdb"
+  accountservice:
+    image: "accountservice"
+    build: "./AccountService"
+  portservice:
+    image: "portservice"
+    build: "./PortService"
+  shopdb:
+    image: "shopdb"
+    build: "./ShopDB"

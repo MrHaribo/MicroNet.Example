@@ -31,7 +31,9 @@ public class InstanceStore {
 	private Bucket bucket;
 
 	public InstanceStore() {
-		cluster = CouchbaseCluster.create("localhost");
+		String connectionString = System.getenv("couchbase_address") != null ? System.getenv("couchbase_address") : "localhost";
+		System.out.println("Connecting to Couchbase: " + connectionString);
+		cluster = CouchbaseCluster.create(connectionString);
 		bucket = cluster.openBucket("instance_connections");
         bucket.bucketManager().createN1qlPrimaryIndex(true, false);
 	}

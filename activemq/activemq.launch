@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.linuxtools.docker.ui.runDockerImageLaunchConfigurationType">
+<booleanAttribute key="allocatePseudoTTY" value="false"/>
+<booleanAttribute key="autoRemove" value="false"/>
+<listAttribute key="binds"/>
+<stringAttribute key="command" value="/app/run.sh "/>
+<stringAttribute key="connectionName" value="http://127.0.0.1:2375"/>
+<stringAttribute key="cpuPriority" value="1024"/>
+<stringAttribute key="creationDate" value="2017-05-08 16:31:13"/>
+<booleanAttribute key="enableLimits" value="false"/>
+<listAttribute key="envVariables"/>
+<stringAttribute key="imageId" value="sha256:3af15643299345851f234d4e66a41b1d64b751b6ace09a9a4b05d658fe5cd7c1"/>
+<stringAttribute key="imageName" value="webcenter/activemq:latest"/>
+<booleanAttribute key="interactive" value="false"/>
+<mapAttribute key="labels"/>
+<listAttribute key="links"/>
+<stringAttribute key="memoryLimit" value="512"/>
+<stringAttribute key="networkMode" value=""/>
+<booleanAttribute key="privileged" value="false"/>
+<booleanAttribute key="publishAllPorts" value="false"/>
+<listAttribute key="publishedPorts">
+<listEntry value="61613/tcp::61613:true"/>
+<listEntry value="8161/tcp::8161:true"/>
+<listEntry value="61616/tcp::61616:true"/>
+<listEntry value="61614/tcp::61614:true"/>
+<listEntry value="1883/tcp::1883:true"/>
+<listEntry value="5672/tcp::5672:true"/>
+</listAttribute>
+<listAttribute key="volumes"/>
+<listAttribute key="volumesFrom"/>
+</launchConfiguration>

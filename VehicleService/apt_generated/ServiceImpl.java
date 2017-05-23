@@ -17,16 +17,16 @@ public class ServiceImpl {
 	
 			VehicleService service = new VehicleService();
 	
-			peer.listen("/collection/create", (Request request) -> service.createVehicleCollection(context, request));
-peer.listen("/weapon/unequip", (Request request) -> service.unequipWeapon(context, request));
-peer.listen("/add", (Request request) -> service.addVehicle(context, request));
-peer.listen("/configuration/all/upload", (Request request) -> service.uploadAllConfigurations(context, request));
-peer.listen("/change", (Request request) -> service.changeVehicle(context, request));
-peer.listen("/weapon/equip", (Request request) -> service.listenerName(context, request));
-peer.listen("/sell", (Request request) -> service.sellVehicle(context, request));
+			peer.listen("/collection/remove", (Request request) -> service.deleteVehicleCollection(context, request));
 peer.listen("/available", (Request request) -> service.getAvailableVehicles(context, request));
+peer.listen("/configuration/all/upload", (Request request) -> service.uploadAllConfigurations(context, request));
+peer.listen("/sell", (Request request) -> service.sellVehicle(context, request));
+peer.listen("/weapon/unequip", (Request request) -> service.unequipWeapon(context, request));
+peer.listen("/collection/create", (Request request) -> service.createVehicleCollection(context, request));
+peer.listen("/weapon/equip", (Request request) -> service.listenerName(context, request));
+peer.listen("/add", (Request request) -> service.addVehicle(context, request));
+peer.listen("/change", (Request request) -> service.changeVehicle(context, request));
 peer.listen("/current", (Request request) -> service.getCurrentVehicle(context, request));
-peer.listen("/collection/remove", (Request request) -> service.deleteVehicleCollection(context, request));
 
 			
 			System.out.println("VehicleService started...");

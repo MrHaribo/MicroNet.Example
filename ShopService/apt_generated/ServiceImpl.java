@@ -18,8 +18,8 @@ public class ServiceImpl {
 			ShopService service = new ShopService();
 	
 			peer.listen("/shops/add", (Request request) -> service.addShop(context, request));
-peer.listen("/shops/get", (Request request) -> service.getShop(context, request));
 peer.listen("/buy", (Request request) -> service.buy(context, request));
+peer.listen("/shops/get", (Request request) -> service.getShop(context, request));
 
 			
 			System.out.println("ShopService started...");
