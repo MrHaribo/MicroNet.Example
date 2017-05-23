@@ -10,7 +10,7 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/travel",
+      "listenerUri": "/instance/close",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -31,7 +31,7 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/instance/close",
+      "listenerUri": "/travel",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],

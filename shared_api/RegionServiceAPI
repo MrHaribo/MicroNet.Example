@@ -3,6 +3,13 @@
   "serviceUri": "mn://region",
   "listeners": [
     {
+      "listenerUri": "/all",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
       "listenerUri": "/add",
       "requestDataType": "String",
       "responseDataType": "String",
@@ -18,13 +25,6 @@
     },
     {
       "listenerUri": "/get",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/all",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
