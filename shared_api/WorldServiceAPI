@@ -10,14 +10,14 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/instance/close",
+      "listenerUri": "/travel/home",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/travel/home",
+      "listenerUri": "/instance/close",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],

@@ -3,14 +3,14 @@
   "serviceUri": "mn://vehicle",
   "listeners": [
     {
-      "listenerUri": "/current",
+      "listenerUri": "/configuration/all/upload",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/configuration/all/upload",
+      "listenerUri": "/current",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -24,14 +24,7 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/add",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/sell",
+      "listenerUri": "/available",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -45,7 +38,7 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/collection/remove",
+      "listenerUri": "/add",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -66,7 +59,14 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/available",
+      "listenerUri": "/sell",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/collection/remove",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
