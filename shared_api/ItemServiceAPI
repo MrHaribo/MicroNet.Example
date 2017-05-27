@@ -3,35 +3,7 @@
   "serviceUri": "mn://item",
   "listeners": [
     {
-      "listenerUri": "/inventory/move",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/inventory/set",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/inventory/get",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/inventory/remove",
-      "requestDataType": "String",
-      "responseDataType": "String",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/inventory/all",
+      "listenerUri": "/inventory/add",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -45,7 +17,21 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/inventory/add",
+      "listenerUri": "/inventory/get",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/inventory/all",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/inventory/move",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -53,6 +39,20 @@
     },
     {
       "listenerUri": "/inventory/refresh",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/inventory/remove",
+      "requestDataType": "String",
+      "responseDataType": "String",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/inventory/set",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],

@@ -3,14 +3,14 @@
   "serviceUri": "mn://region",
   "listeners": [
     {
-      "listenerUri": "/battles/all",
+      "listenerUri": "/add",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
       "responseParameters": []
     },
     {
-      "listenerUri": "/get",
+      "listenerUri": "/battles/all",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
@@ -24,7 +24,7 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/add",
+      "listenerUri": "/get",
       "requestDataType": "String",
       "responseDataType": "String",
       "requestParameters": [],
