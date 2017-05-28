@@ -19,7 +19,6 @@
 	<build>
 		<plugins>
 			<plugin>
-
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
 				<executions>
@@ -39,7 +38,6 @@
 				</executions>
 			</plugin>
 		</plugins>
-
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -55,7 +53,8 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-
+	
+	<!-- target/generated-sources/annotations -->
 
 	<repositories>
 		<repository>
