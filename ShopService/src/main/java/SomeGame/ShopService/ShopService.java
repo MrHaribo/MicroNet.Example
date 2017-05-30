@@ -7,7 +7,6 @@ import micronet.annotation.OnStop;
 import micronet.model.AvatarValues;
 import micronet.model.ID;
 import micronet.model.ItemValues;
-import micronet.model.ParameterCode;
 import micronet.model.RegionValues;
 import micronet.network.Context;
 import micronet.network.Request;

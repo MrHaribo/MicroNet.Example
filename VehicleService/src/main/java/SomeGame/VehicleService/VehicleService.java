@@ -10,7 +10,6 @@ import micronet.annotation.OnStop;
 import micronet.model.AvatarValues;
 import micronet.model.ItemValues;
 import micronet.model.ItemValues.ItemType;
-import micronet.model.ParameterCode;
 import micronet.model.VehicleValues;
 import micronet.network.Context;
 import micronet.network.Request;

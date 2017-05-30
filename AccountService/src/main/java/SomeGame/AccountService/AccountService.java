@@ -1,11 +1,11 @@
 package SomeGame.AccountService;
 
+
 import micronet.annotation.MessageListener;
 import micronet.annotation.MessageService;
 import micronet.annotation.OnStart;
 import micronet.annotation.OnStop;
 import micronet.model.CredentialValues;
-import micronet.model.ParameterCode;
 import micronet.model.UserValues;
 import micronet.network.Context;
 import micronet.network.Request;
@@ -28,10 +28,7 @@ public class AccountService {
 		database.shutdown();
 	}
 
-	@MessageListener(uri="/register", 
-		requestDataType = CredentialValues.class,
-		responseDataType = String.class
-	)
+	@MessageListener(uri="/register")
 	public Response onRegister(Context context, Request request) {
 		CredentialValues credentials = Serialization.deserialize(request.getData(), CredentialValues.class);
 		UserValues existingUser = database.getUser(credentials.getUsername());
@@ -56,10 +53,7 @@ public class AccountService {
 		}
 	}
 	
-	@MessageListener(uri="/login",
-		requestDataType = CredentialValues.class,
-		responseDataType = UserValues.class
-	)
+	@MessageListener(uri="/login")
 	public Response onLogin(Context context, Request request) {
 		CredentialValues credentials = Serialization.deserialize(request.getData(), CredentialValues.class);
 		UserValues user = database.getUser(credentials.getUsername());

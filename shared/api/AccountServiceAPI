@@ -1,0 +1,12 @@
+{
+  "serviceName": "AccountService",
+  "serviceUri": "mn://account",
+  "listeners": [
+    {
+      "listenerUri": "/login"
+    },
+    {
+      "listenerUri": "/register"
+    }
+  ]
+}

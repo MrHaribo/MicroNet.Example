@@ -1,0 +1,18 @@
+{
+  "serviceName": "RegionService",
+  "serviceUri": "mn://region",
+  "listeners": [
+    {
+      "listenerUri": "/add"
+    },
+    {
+      "listenerUri": "/battles/all"
+    },
+    {
+      "listenerUri": "/all"
+    },
+    {
+      "listenerUri": "/get"
+    }
+  ]
+}

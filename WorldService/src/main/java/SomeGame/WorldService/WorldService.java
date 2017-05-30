@@ -10,7 +10,6 @@ import micronet.annotation.OnStop;
 import micronet.model.AvatarValues;
 import micronet.model.ID;
 import micronet.model.IDType;
-import micronet.model.ParameterCode;
 import micronet.network.Context;
 import micronet.network.IAdvisory;
 import micronet.network.Request;
@@ -42,14 +41,21 @@ public class WorldService {
 			instanceStore.unqueueUser(userID);
 		});
 	}
-	
 
-	
 	@OnStop
 	public void onStop(Context context) {
 	}
-
-	@MessageListener(uri = "/join")
+	
+	@MessageListener(uri = "/join2")
+	@RequestParameters({
+		@MessageParameter(ParameterCode.USER_ID), 
+		@MessageParameter(ParameterCode.INDEX)
+	})
+	@ResponseParameters({
+		@MessageParameter(ParameterCode.HOST), 
+		@MessageParameter(ParameterCode.NAME),
+		@MessageParameter(ParameterCode.FACTION)
+	})
 	public Response joinWorld(Context context, Request request) {
 		int userID = request.getParameters().getInt(ParameterCode.USER_ID);
 		Response avatarResponse = context.sendRequestBlocking("mn://avatar/current/set", request);
@@ -62,7 +68,7 @@ public class WorldService {
 		return joinWorld(context, userID, avatar.getRegionID(), avatarResponse.getData());
 	}
 	
-	@MessageListener(uri = "/travel/home")
+	@MessageListener(uri = "/travel/home2")
 	public Response homestone(Context context, Request request) {
 		int userID = request.getParameters().getInt(ParameterCode.USER_ID);
 		Response avatarResponse = context.sendRequestBlocking("mn://avatar/current/get", request);
@@ -79,6 +85,7 @@ public class WorldService {
 			return new Response(StatusCode.FORBIDDEN, "Must be in Space to Travel");
 		return joinWorld(context, userID, new ID(request.getData()), avatarResponse.getData());
 	}
+
 
 	@MessageListener(uri = "/instance/open")
 	public Response readyInstance(Context context, Request request) {

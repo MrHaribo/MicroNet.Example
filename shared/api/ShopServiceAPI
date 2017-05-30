@@ -1,0 +1,15 @@
+{
+  "serviceName": "ShopService",
+  "serviceUri": "mn://shop",
+  "listeners": [
+    {
+      "listenerUri": "/shops/add"
+    },
+    {
+      "listenerUri": "/buy"
+    },
+    {
+      "listenerUri": "/shops/get"
+    }
+  ]
+}

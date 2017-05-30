@@ -1,0 +1,36 @@
+{
+  "serviceName": "VehicleService",
+  "serviceUri": "mn://vehicle",
+  "listeners": [
+    {
+      "listenerUri": "/add"
+    },
+    {
+      "listenerUri": "/change"
+    },
+    {
+      "listenerUri": "/collection/create"
+    },
+    {
+      "listenerUri": "/collection/remove"
+    },
+    {
+      "listenerUri": "/available"
+    },
+    {
+      "listenerUri": "/current"
+    },
+    {
+      "listenerUri": "/weapon/equip"
+    },
+    {
+      "listenerUri": "/sell"
+    },
+    {
+      "listenerUri": "/weapon/unequip"
+    },
+    {
+      "listenerUri": "/configuration/all/upload"
+    }
+  ]
+}

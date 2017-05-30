@@ -4,7 +4,6 @@ import java.net.URI;
 
 import micronet.model.AvatarValues;
 import micronet.model.CredentialValues;
-import micronet.model.ParameterCode;
 import micronet.network.Context;
 import micronet.network.Request;
 import micronet.network.Response;
@@ -21,7 +20,7 @@ public class TestClient {
 		creds.setPassword("");
 		
 		Request loginRequest = new Request(Serialization.serialize(creds));
-		loginRequest.getParameters().set(ParameterCode.USER_REQUEST, "mn://account/login");
+		loginRequest.getParameters().set("USER_REQUEST", "mn://account/login");
 		context.getPeer().sendRequest(URI.create("mn://request3"), loginRequest, response -> onLogin(context, response));
 	}
 	
@@ -31,8 +30,8 @@ public class TestClient {
 		AvatarValues avatar = new AvatarValues("Hans");
 		
 		Request createAvatarRequest = new Request(Serialization.serialize(avatar));
-		createAvatarRequest.getParameters().set(ParameterCode.FACTION, "Rebel");
-		createAvatarRequest.getParameters().set(ParameterCode.USER_REQUEST, "mn://avatar/create");
+		createAvatarRequest.getParameters().set("FACTION", "Rebel");
+		createAvatarRequest.getParameters().set("USER_REQUEST", "mn://avatar/create");
 		context.getPeer().sendRequest(URI.create("mn://request"), createAvatarRequest, avatarCreatedResponse -> onAvatarCreated(context, avatarCreatedResponse));
 	}
 	
@@ -40,13 +39,13 @@ public class TestClient {
 		System.out.println("Create Avatar: " + response);
 		
 		Request avatarSelectRequest = new Request("Hans");
-		avatarSelectRequest.getParameters().set(ParameterCode.USER_REQUEST, "mn://avatar/current/set");
+		avatarSelectRequest.getParameters().set("USER_REQUEST", "mn://avatar/current/set");
 		context.getPeer().sendRequest(URI.create("mn://request"), avatarSelectRequest, avatarSelectedResponse -> onAvatarSelect(context, avatarSelectedResponse));
 	}
 	
 	static void onAvatarSelect(Context context, Response response) {
 		Request joinRequest = new Request();
-		joinRequest.getParameters().set(ParameterCode.USER_REQUEST, "mn://world/travel/home");
+		joinRequest.getParameters().set("USER_REQUEST", "mn://world/travel/home");
 		context.getPeer().sendRequest(URI.create("mn://request"), joinRequest, travelResponse -> {
 			System.out.println("Avatar Select: " + travelResponse);
 		});

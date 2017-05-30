@@ -1,0 +1,12 @@
+{
+  "serviceName": "GatewayService",
+  "serviceUri": "mn://gateway",
+  "listeners": [
+    {
+      "listenerUri": "/broadcast/event"
+    },
+    {
+      "listenerUri": "/forward/event"
+    }
+  ]
+}

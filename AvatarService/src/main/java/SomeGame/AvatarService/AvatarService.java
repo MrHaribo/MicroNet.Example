@@ -11,7 +11,6 @@ import micronet.model.AvatarValues;
 import micronet.model.FactionValues;
 import micronet.model.ID;
 import micronet.model.IDType;
-import micronet.model.ParameterCode;
 import micronet.network.Context;
 import micronet.network.Request;
 import micronet.network.Response;

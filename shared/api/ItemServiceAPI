@@ -1,0 +1,30 @@
+{
+  "serviceName": "ItemService",
+  "serviceUri": "mn://item",
+  "listeners": [
+    {
+      "listenerUri": "/inventory/add"
+    },
+    {
+      "listenerUri": "/inventory/create"
+    },
+    {
+      "listenerUri": "/inventory/get"
+    },
+    {
+      "listenerUri": "/inventory/all"
+    },
+    {
+      "listenerUri": "/inventory/move"
+    },
+    {
+      "listenerUri": "/inventory/refresh"
+    },
+    {
+      "listenerUri": "/inventory/remove"
+    },
+    {
+      "listenerUri": "/inventory/set"
+    }
+  ]
+}

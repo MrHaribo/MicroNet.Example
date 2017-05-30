@@ -4,7 +4,6 @@ import micronet.annotation.MessageListener;
 import micronet.annotation.MessageService;
 import micronet.annotation.OnStart;
 import micronet.model.ItemValues;
-import micronet.model.ParameterCode;
 import micronet.network.Context;
 import micronet.network.Request;
 import micronet.network.Response;
