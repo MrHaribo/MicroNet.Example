@@ -48,12 +48,13 @@
 						<compilerArgs>
 							<arg>-Aworkspace_path=${project.basedir}\..\</arg>
 						</compilerArgs>
+						<proc>only</proc>
 					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
-	
+
 	<!-- target/generated-sources/annotations -->
 
 	<repositories>

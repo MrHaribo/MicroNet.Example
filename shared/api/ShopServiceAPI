@@ -3,13 +3,19 @@
   "serviceUri": "mn://shop",
   "listeners": [
     {
-      "listenerUri": "/shops/add"
+      "listenerUri": "/shops/add",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/buy"
+      "listenerUri": "/buy",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/shops/get"
+      "listenerUri": "/shops/get",
+      "requestParameters": [],
+      "responseParameters": []
     }
   ]
 }

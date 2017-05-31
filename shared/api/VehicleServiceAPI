@@ -3,34 +3,54 @@
   "serviceUri": "mn://vehicle",
   "listeners": [
     {
-      "listenerUri": "/add"
+      "listenerUri": "/add",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/change"
+      "listenerUri": "/change",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/collection/create"
+      "listenerUri": "/collection/create",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/collection/remove"
+      "listenerUri": "/collection/remove",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/available"
+      "listenerUri": "/available",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/current"
+      "listenerUri": "/current",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/weapon/equip"
+      "listenerUri": "/weapon/equip",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/sell"
+      "listenerUri": "/sell",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/weapon/unequip"
+      "listenerUri": "/weapon/unequip",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/configuration/all/upload"
+      "listenerUri": "/configuration/all/upload",
+      "requestParameters": [],
+      "responseParameters": []
     }
   ]
 }

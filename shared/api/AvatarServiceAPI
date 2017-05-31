@@ -3,49 +3,79 @@
   "serviceUri": "mn://avatar",
   "listeners": [
     {
-      "listenerUri": "/credits/add"
+      "listenerUri": "/credits/add",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/reputation/add"
+      "listenerUri": "/reputation/add",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/credits/balance"
+      "listenerUri": "/credits/balance",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/create"
+      "listenerUri": "/create",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/delete"
+      "listenerUri": "/delete",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/all"
+      "listenerUri": "/all",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/current/get"
+      "listenerUri": "/current/get",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/current/name/get"
+      "listenerUri": "/current/name/get",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/land"
+      "listenerUri": "/land",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/persist"
+      "listenerUri": "/persist",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/credits/remove"
+      "listenerUri": "/credits/remove",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/get"
+      "listenerUri": "/get",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/current/set"
+      "listenerUri": "/current/set",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/takeoff"
+      "listenerUri": "/takeoff",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/current/update"
+      "listenerUri": "/current/update",
+      "requestParameters": [],
+      "responseParameters": []
     }
   ]
 }

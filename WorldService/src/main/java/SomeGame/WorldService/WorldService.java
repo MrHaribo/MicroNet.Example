@@ -46,14 +46,13 @@ public class WorldService {
 	public void onStop(Context context) {
 	}
 	
-	@MessageListener(uri = "/join2")
+	@MessageListener(uri = "/join")
 	@RequestParameters({
 		@MessageParameter(ParameterCode.USER_ID), 
 		@MessageParameter(ParameterCode.INDEX)
 	})
 	@ResponseParameters({
 		@MessageParameter(ParameterCode.HOST), 
-		@MessageParameter(ParameterCode.NAME),
 		@MessageParameter(ParameterCode.FACTION)
 	})
 	public Response joinWorld(Context context, Request request) {
@@ -68,7 +67,7 @@ public class WorldService {
 		return joinWorld(context, userID, avatar.getRegionID(), avatarResponse.getData());
 	}
 	
-	@MessageListener(uri = "/travel/home2")
+	@MessageListener(uri = "/travel/home")
 	public Response homestone(Context context, Request request) {
 		int userID = request.getParameters().getInt(ParameterCode.USER_ID);
 		Response avatarResponse = context.sendRequestBlocking("mn://avatar/current/get", request);

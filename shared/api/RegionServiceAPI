@@ -3,16 +3,24 @@
   "serviceUri": "mn://region",
   "listeners": [
     {
-      "listenerUri": "/add"
+      "listenerUri": "/add",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/battles/all"
+      "listenerUri": "/battles/all",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/all"
+      "listenerUri": "/all",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/get"
+      "listenerUri": "/get",
+      "requestParameters": [],
+      "responseParameters": []
     }
   ]
 }

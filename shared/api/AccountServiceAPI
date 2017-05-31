@@ -3,10 +3,14 @@
   "serviceUri": "mn://account",
   "listeners": [
     {
-      "listenerUri": "/login"
+      "listenerUri": "/login",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/register"
+      "listenerUri": "/register",
+      "requestParameters": [],
+      "responseParameters": []
     }
   ]
 }

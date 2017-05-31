@@ -3,28 +3,44 @@
   "serviceUri": "mn://item",
   "listeners": [
     {
-      "listenerUri": "/inventory/add"
+      "listenerUri": "/inventory/add",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/inventory/create"
+      "listenerUri": "/inventory/create",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/inventory/get"
+      "listenerUri": "/inventory/get",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/inventory/all"
+      "listenerUri": "/inventory/all",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/inventory/move"
+      "listenerUri": "/inventory/move",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/inventory/refresh"
+      "listenerUri": "/inventory/refresh",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/inventory/remove"
+      "listenerUri": "/inventory/remove",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/inventory/set"
+      "listenerUri": "/inventory/set",
+      "requestParameters": [],
+      "responseParameters": []
     }
   ]
 }

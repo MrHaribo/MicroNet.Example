@@ -3,19 +3,43 @@
   "serviceUri": "mn://world",
   "listeners": [
     {
-      "listenerUri": "/travel/home2"
+      "listenerUri": "/travel/home",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/join2"
+      "listenerUri": "/join",
+      "requestParameters": [
+        {
+          "type": "USER_ID"
+        },
+        {
+          "type": "INDEX"
+        }
+      ],
+      "responseParameters": [
+        {
+          "type": "HOST"
+        },
+        {
+          "type": "FACTION"
+        }
+      ]
     },
     {
-      "listenerUri": "/instance/open"
+      "listenerUri": "/instance/open",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/instance/close"
+      "listenerUri": "/instance/close",
+      "requestParameters": [],
+      "responseParameters": []
     },
     {
-      "listenerUri": "/travel"
+      "listenerUri": "/travel",
+      "requestParameters": [],
+      "responseParameters": []
     }
   ]
 }
