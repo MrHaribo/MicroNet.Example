@@ -3,15 +3,25 @@
   "serviceUri": "mn://world",
   "listeners": [
     {
-      "listenerUri": "/travel/home",
-      "requestParameters": [],
-      "responseParameters": []
-    },
-    {
-      "listenerUri": "/join",
+      "listenerUri": "/travel/home244",
       "requestParameters": [
         {
           "type": "USER_ID"
+        },
+        {
+          "type": "LANDED"
+        }
+      ],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/join65",
+      "requestParameters": [
+        {
+          "type": "USER_ID"
+        },
+        {
+          "type": "NAME"
         },
         {
           "type": "INDEX"
@@ -20,6 +30,9 @@
       "responseParameters": [
         {
           "type": "HOST"
+        },
+        {
+          "type": "INDEX"
         },
         {
           "type": "FACTION"
