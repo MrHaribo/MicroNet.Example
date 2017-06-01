@@ -46,16 +46,14 @@ public class WorldService {
 	public void onStop(Context context) {
 	}
 	
-	@MessageListener(uri = "/join65")
+	@MessageListener(uri = "/join6525")
 	@RequestParameters({
 		@MessageParameter(ParameterCode.USER_ID), 
 		@MessageParameter(ParameterCode.NAME), 
 		@MessageParameter(ParameterCode.INDEX)
-		
 	})
 	@ResponseParameters({
 		@MessageParameter(ParameterCode.HOST), 
-		@MessageParameter(ParameterCode.INDEX), 
 		@MessageParameter(ParameterCode.FACTION)
 	})
 	public Response joinWorld(Context context, Request request) {
@@ -70,7 +68,7 @@ public class WorldService {
 		return joinWorld(context, userID, avatar.getRegionID(), avatarResponse.getData());
 	}
 	
-	@MessageListener(uri = "/travel/home244")
+	@MessageListener(uri = "/travel/home243333")
 	@RequestParameters({
 		@MessageParameter(ParameterCode.USER_ID), 
 		@MessageParameter(ParameterCode.LANDED)

@@ -1,5 +1,5 @@
 eclipse.preferences.version=1
 enabled=true
 links=
-parameters.required=LANDED,USER_ID,INDEX,NAME
+parameters.required=LANDED,USER_ID,HOST,FACTION,INDEX,NAME
 ports=

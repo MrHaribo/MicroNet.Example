@@ -3,7 +3,7 @@
   "serviceUri": "mn://world",
   "listeners": [
     {
-      "listenerUri": "/travel/home244",
+      "listenerUri": "/travel/home243333",
       "requestParameters": [
         {
           "type": "USER_ID"
@@ -15,7 +15,7 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/join65",
+      "listenerUri": "/join6525",
       "requestParameters": [
         {
           "type": "USER_ID"
@@ -30,9 +30,6 @@
       "responseParameters": [
         {
           "type": "HOST"
-        },
-        {
-          "type": "INDEX"
         },
         {
           "type": "FACTION"
