@@ -46,7 +46,7 @@ public class WorldService {
 	public void onStop(Context context) {
 	}
 	
-	@MessageListener(uri = "/join6525")
+	@MessageListener(uri = "/join6533")
 	@RequestParameters({
 		@MessageParameter(ParameterCode.USER_ID), 
 		@MessageParameter(ParameterCode.NAME), 
@@ -68,7 +68,7 @@ public class WorldService {
 		return joinWorld(context, userID, avatar.getRegionID(), avatarResponse.getData());
 	}
 	
-	@MessageListener(uri = "/travel/home243333")
+	@MessageListener(uri = "/travel/home2432")
 	@RequestParameters({
 		@MessageParameter(ParameterCode.USER_ID), 
 		@MessageParameter(ParameterCode.LANDED)
