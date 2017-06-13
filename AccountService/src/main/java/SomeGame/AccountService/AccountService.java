@@ -5,8 +5,6 @@ import micronet.annotation.MessageListener;
 import micronet.annotation.MessageService;
 import micronet.annotation.OnStart;
 import micronet.annotation.OnStop;
-import micronet.model.CredentialValues;
-import micronet.model.UserValues;
 import micronet.network.Context;
 import micronet.network.Request;
 import micronet.network.Response;
@@ -34,7 +32,7 @@ public class AccountService {
 		UserValues existingUser = database.getUser(credentials.getUsername());
 
 		if (existingUser != null) {
-			System.out.println("User already registred! " + existingUser.getName());
+			System.out.println("User already registred! " + existingUser.getCredentials().getUsername());
 			return new Response(StatusCode.CONFLICT, "User already registred...");
 		} else {
 			if (database.addUser(credentials)) {

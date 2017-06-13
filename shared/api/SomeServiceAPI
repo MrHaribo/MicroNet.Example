@@ -8,7 +8,7 @@
       "responseParameters": []
     },
     {
-      "listenerUri": "/yourListener/with/response",
+      "listenerUri": "/yourListener/with/response2",
       "requestParameters": [],
       "responseParameters": []
     }

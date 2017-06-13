@@ -7,10 +7,8 @@ import java.sql.SQLException;
 
 import org.postgresql.util.PGobject;
 
-import micronet.serialization.Serialization;
 import micronet.database.Database;
-import micronet.model.CredentialValues;
-import micronet.model.UserValues;
+import micronet.serialization.Serialization;
 
 public class AccountDatabase extends Database {
 
@@ -28,7 +26,7 @@ public class AccountDatabase extends Database {
 			if (result.next()) {
 				String data = result.getString(1);
 				CredentialValues credentials = Serialization.deserialize(data, CredentialValues.class);
-				return new UserValues(id, credentials);
+				return createUser(id, credentials);
 			}
 			stmt.close();
 		} catch (SQLException sqle) {
@@ -48,7 +46,7 @@ public class AccountDatabase extends Database {
 				String data = result.getString(2);
 				int id = result.getInt(1);
 				CredentialValues credentials = Serialization.deserialize(data, CredentialValues.class);
-				return new UserValues(id, credentials);
+				return createUser(id, credentials);
 			}
 			stmt.close();
 		} catch (SQLException sqle) {
@@ -78,5 +76,12 @@ public class AccountDatabase extends Database {
 			System.err.println("Something exploded running the insert: " + sqle.getMessage());
 		}
 		return false;
+	}
+	
+	private UserValues createUser(int id, CredentialValues credentials) {
+		UserValues user = new UserValues();
+		user.setId(id);
+		user.setCredentials(credentials);
+		return user;
 	}
 }

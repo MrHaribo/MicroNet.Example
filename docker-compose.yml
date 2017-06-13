@@ -1,63 +1,29 @@
 ---
 version: "3"
 services:
+  simpleservice:
+    image: "simpleservice"
+    build: "./SimpleService"
   activemq:
     image: "activemq"
     build: "./activemq"
     ports:
     - "61616:61616"
-  regionservice:
-    image: "regionservice"
-    build: "./RegionService"
-    links:
-    - "regiondb"
-  regiondb:
-    image: "regiondb"
-    build: "./RegionDB"
-  worldservice:
-    image: "worldservice"
-    build: "./WorldService"
-  vehicleservice:
-    image: "vehicleservice"
-    build: "./VehicleService"
-    links:
-    - "vehicledb"
-  itemdb:
-    image: "itemdb"
-    build: "./ItemDB"
-  gatewayservice:
-    image: "gatewayservice"
-    build: "./GatewayService"
-  avatardb:
-    image: "avatardb"
-    build: "./AvatarDB"
   accountdb:
     image: "accountdb"
     build: "./AccountDB"
-  avatarservice:
-    image: "avatarservice"
-    build: "./AvatarService"
-    links:
-    - "avatardb"
-  vehicledb:
-    image: "vehicledb"
-    build: "./VehicleDB"
-  shopservice:
-    image: "shopservice"
-    build: "./ShopService"
-    links:
-    - "shopdb"
-  itemservice:
-    image: "itemservice"
-    build: "./ItemService"
-    links:
-    - "itemdb"
+  couchbase:
+    image: "couchbase"
+    build: "./couchbase"
+    ports:
+    - "8091-8094:8091-8094"
+    - "11210:11210"
+  testclient:
+    image: "testclient"
+    build: "./TestClient"
   accountservice:
     image: "accountservice"
     build: "./AccountService"
-  portservice:
-    image: "portservice"
-    build: "./PortService"
-  shopdb:
-    image: "shopdb"
-    build: "./ShopDB"
+  gatewayservice:
+    image: "gatewayservice"
+    build: "./GatewayService"

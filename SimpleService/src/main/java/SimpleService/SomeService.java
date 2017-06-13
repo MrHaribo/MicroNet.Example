@@ -20,12 +20,12 @@ public class SomeService {
 	public void onStop(Context context) {
 	}
 
-	@MessageListener(uri = "/yourListener/with/response")
-	public Response reservePort(Context context, Request request) {
+	@MessageListener(uri = "/yourListener/with/response2")
+	public Response fooMethod(Context context, Request request) {
 		return new Response(StatusCode.OK, "Hello World!");
 	}
 	@MessageListener(uri = "/yourListener/simple")
-	public void releasePort(Context context, Request request) {
+	public void barMethod(Context context, Request request) {
 	}
 
 }

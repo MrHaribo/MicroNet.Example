@@ -11,14 +11,9 @@
   <url>http://maven.apache.org</url>
     
   <modules>
-    <module>VehicleService</module>
-    <module>WorldService</module>
-    <module>GatewayService</module>
-    <module>ShopService</module>
-    <module>ItemService</module>
-    <module>AvatarService</module>
-    <module>PortService</module>
-    <module>RegionService</module>
+    <module>TestClient</module>
+    <module>SimpleService</module>
     <module>AccountService</module>
+    <module>GatewayService</module>
   </modules>
 </project>
