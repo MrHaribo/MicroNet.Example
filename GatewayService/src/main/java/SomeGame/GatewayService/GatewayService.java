@@ -94,8 +94,6 @@ public class GatewayService {
 				if (connection != null)
 					return new Response(StatusCode.FORBIDDEN, "User ID already in use");
 				connection = connections.add(connectionID, userID);
-				
-				
 				return new Response(StatusCode.OK);
 			}
 			return loginResponse;

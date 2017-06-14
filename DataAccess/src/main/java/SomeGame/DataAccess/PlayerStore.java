@@ -7,6 +7,7 @@ import com.couchbase.client.java.Bucket;
 import com.couchbase.client.java.Cluster;
 import com.couchbase.client.java.CouchbaseCluster;
 import com.couchbase.client.java.document.JsonDocument;
+import com.couchbase.client.java.document.json.JsonArray;
 import com.couchbase.client.java.document.json.JsonObject;
 import com.couchbase.client.java.query.N1qlQuery;
 import com.couchbase.client.java.query.N1qlQueryResult;
@@ -55,15 +56,14 @@ public class PlayerStore {
 	
 	public List<Player> all() {
 
-		String query = String.format("SELECT %s FROM entities WHERE %s=%S", Entity.VALUE_KEY, Entity.TYPE_KEY, Player.class.getSimpleName());
-		
         N1qlQueryResult result = bucket.query(
-            N1qlQuery.simple(query)
-        );
+                N1qlQuery.parameterized("SELECT `value` FROM entities WHERE type=$1", 
+                JsonArray.from(Player.class.getSimpleName()))
+            );
 
         List<Player> connections = new ArrayList<>();
         for (N1qlQueryRow row : result) {
-        	connections.add(Serialization.deserialize(row.value().toString(), Player.class));
+        	connections.add(Serialization.deserialize(row.value().get("value").toString(), Player.class));
         }
         return connections;
 	}

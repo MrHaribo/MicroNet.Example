@@ -17,6 +17,8 @@ import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.gui2.table.Table;
 import com.googlecode.lanterna.gui2.table.TableModel;
 
+import SomeGame.TestClient.Player;
+
 public class GameInformationWindow extends BasicWindow {
 
 	private int topMargin = 5;
@@ -25,6 +27,8 @@ public class GameInformationWindow extends BasicWindow {
 	private int width = 32;
 
 	private Label roundTimeLabel;
+	private Table<String> scoreTable;
+	
 	private long roundEndTime;
 	private Timer roundUpdateTimer;
 
@@ -38,7 +42,7 @@ public class GameInformationWindow extends BasicWindow {
 		roundTimeLabel = new Label("Remaining: 0s");
 		roundTimeLabel.setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Fill));
 
-		Table<String> scoreTable = new Table<String>("Player", "Score");
+		scoreTable = new Table<String>("Player", "Score");
 
 		TableModel<String> tableModel = new TableModel<>("Player", "Score");
 
@@ -76,6 +80,17 @@ public class GameInformationWindow extends BasicWindow {
 	
 	public void stopRoundUpdate() {
 		roundUpdateTimer.cancel();
+	}
+	
+	public void refreshPlayerScores(Player[] players) {
+		
+		TableModel<String> tableModel = new TableModel<>("Player", "Score");
+
+		for (Player player : players) {
+			tableModel.addRow(player.getName(), Integer.toString(player.getScore()));
+		}
+
+		scoreTable.setTableModel(tableModel);
 	}
 
 	public void refreshLayout(TerminalSize terminalSize) {

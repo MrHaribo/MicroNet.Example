@@ -3,6 +3,7 @@ package SomeGame.TestClient;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Arrays;
+import java.util.List;
 
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
@@ -71,7 +72,14 @@ public class TestClient {
 		});
         
         new Thread(() ->{
-    		peer = PeerFactory.createClientPeer();
+        	peer = PeerFactory.createClientPeer();
+    		peer.listen(Event.ScoreUpdate.toString(), event ->{ 
+    			Player[] allPlayers = Serialization.deserialize(event.getData(), Player[].class);
+    			gameInfoWindow.refreshPlayerScores(allPlayers);
+    		});
+    		peer.listen(Event.RoundStart.toString(), event ->{ 
+    			gameInfoWindow.setRoundTime(Integer.parseInt(event.getData()));
+    		});
         }).start();
         
         MultiWindowTextGUI gui = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLUE));
