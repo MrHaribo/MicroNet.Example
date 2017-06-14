@@ -75,6 +75,13 @@
 			<version>0.0.2-SNAPSHOT</version>
 			<type>pom</type>
 		</dependency>
+
+		<dependency>
+			<groupId>SomeGame</groupId>
+			<artifactId>DataAccess</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

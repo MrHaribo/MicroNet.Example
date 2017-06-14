@@ -3,7 +3,6 @@ package SomeGame.TestClient;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Arrays;
-import java.util.function.Consumer;
 
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
@@ -17,10 +16,10 @@ import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.TerminalResizeListener;
 
 import SomeGame.TestClient.UI.ConsoleWindow;
-import SomeGame.TestClient.UI.GameWindow;
+import SomeGame.TestClient.UI.GameInformationWindow;
 import SomeGame.TestClient.UI.HeaderWindow;
 import SomeGame.TestClient.UI.LoginWindow;
-import micronet.network.Context;
+import micronet.network.IPeer;
 import micronet.network.Request;
 import micronet.network.Response;
 import micronet.network.StatusCode;
@@ -31,9 +30,9 @@ public class TestClient {
 	
 	private static LoginWindow loginWindow;
 	private static ConsoleWindow console;
-	private static GameWindow gameWindow;
+	private static GameInformationWindow gameInfoWindow;
 	
-	private static Context context;
+	private static IPeer peer;
 
 	public static void main(String[] args) throws IOException {
 
@@ -48,7 +47,8 @@ public class TestClient {
         console = new ConsoleWindow();
         console.refreshLayout(terminal.getTerminalSize());
 
-        gameWindow = new GameWindow();
+        gameInfoWindow = new GameInformationWindow(terminal.getTerminalSize());
+        gameInfoWindow.refreshLayout(terminal.getTerminalSize());
         
         Runnable onLogin = () -> {
         	console.print("Sending Login: " + loginWindow.getUsername() + " -> " + hidePasswordString());
@@ -65,21 +65,23 @@ public class TestClient {
 			@Override
 			public void onResized(Terminal terminal, TerminalSize newSize) {
 				console.refreshLayout(newSize);
+				gameInfoWindow.refreshLayout(newSize);
 				headerWindow.refreshLayout(newSize);
 			}
 		});
         
         new Thread(() ->{
-        	context = new Context(PeerFactory.createPeer());
+    		peer = PeerFactory.createClientPeer();
         }).start();
         
         MultiWindowTextGUI gui = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLUE));
        	gui.addWindow(headerWindow);
         gui.addWindow(console);
-        gui.addWindow(gameWindow);
+        gui.addWindow(gameInfoWindow);
         gui.addWindowAndWait(loginWindow);
         
-        context.shutdown();
+        gameInfoWindow.stopRoundUpdate();
+        peer.shutdown();
     }
 
 	private static void sendLogin() {
@@ -88,7 +90,7 @@ public class TestClient {
 		creds.setPassword(loginWindow.getPassword());
 		
 		Request loginRequest = new Request(Serialization.serialize(creds));
-		sendRequest("mn://account/login", loginRequest, response -> onLogin(response));
+		peer.sendRequest(URI.create("mn://account/login"), loginRequest, response -> onLogin(response));
 	}
 	
 	static void onLogin(Response response) {
@@ -96,7 +98,7 @@ public class TestClient {
 		
 		if (response.getStatus() == StatusCode.OK) {
 			loginWindow.setVisible(false);
-			gameWindow.setVisible(true);
+			gameInfoWindow.setVisible(true);
 		}
 	}
 	
@@ -106,17 +108,12 @@ public class TestClient {
 		creds.setPassword(loginWindow.getPassword());
 		
 		Request request = new Request(Serialization.serialize(creds));
-		sendRequest("mn://account/register", request, response -> onRegister(response));
+		peer.sendRequest(URI.create("mn://account/register"), request, response -> onRegister(response));
 	}
 
 	
 	private static void onRegister(Response response) {
 		console.print("Register: " + response);
-	}
-
-	private static void sendRequest(String destination, Request request, Consumer<Response> messageHandler) {
-		request.getParameters().set(ParameterCode.USER_REQUEST, destination);
-		context.getPeer().sendRequest(URI.create("mn://request"), request, messageHandler);
 	}
 	
 	private static String hidePasswordString() {

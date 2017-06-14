@@ -1,0 +1,21 @@
+{
+  "serviceName": "PlayerService",
+  "serviceUri": "mn://player",
+  "listeners": [
+    {
+      "listenerUri": "/add",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/score/broadcast",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/remove",
+      "requestParameters": [],
+      "responseParameters": []
+    }
+  ]
+}

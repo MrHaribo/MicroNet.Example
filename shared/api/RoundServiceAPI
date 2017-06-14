@@ -1,0 +1,5 @@
+{
+  "serviceName": "RoundService",
+  "serviceUri": "mn://round",
+  "listeners": []
+}

@@ -51,7 +51,7 @@
 							<arg>-Aworkspace_path=${project.basedir}\..\</arg>
 							<arg>-Agroup_id=${project.groupId}</arg>
 							<arg>-Aartifact_id=${project.artifactId}</arg>
-							<arg>-Ano_service=""</arg>
+							<arg>-Agenerate_model=""</arg>
 						</compilerArgs>
 					</configuration>
 				</plugin>

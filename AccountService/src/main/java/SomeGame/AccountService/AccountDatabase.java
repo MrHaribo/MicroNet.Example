@@ -7,6 +7,8 @@ import java.sql.SQLException;
 
 import org.postgresql.util.PGobject;
 
+import SomeGame.DataAccess.CredentialValues;
+import SomeGame.DataAccess.UserValues;
 import micronet.database.Database;
 import micronet.serialization.Serialization;
 

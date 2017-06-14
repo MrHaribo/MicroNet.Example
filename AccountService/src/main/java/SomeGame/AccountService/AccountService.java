@@ -1,11 +1,14 @@
 package SomeGame.AccountService;
 
 
+import SomeGame.DataAccess.CredentialValues;
+import SomeGame.DataAccess.UserValues;
 import micronet.annotation.MessageListener;
 import micronet.annotation.MessageService;
 import micronet.annotation.OnStart;
 import micronet.annotation.OnStop;
 import micronet.network.Context;
+import micronet.network.NetworkConstants;
 import micronet.network.Request;
 import micronet.network.Response;
 import micronet.network.StatusCode;
@@ -41,7 +44,7 @@ public class AccountService {
 				// TODO: Manage via Topics
 				UserValues newUser = database.getUser(credentials.getUsername());
 				Request createInventoryRequest = new Request();
-				createInventoryRequest.getParameters().set(ParameterCode.USER_ID, newUser.getId());
+				createInventoryRequest.getParameters().set(NetworkConstants.USER_ID, newUser.getId());
 				context.sendRequest("mn://item/inventory/create", createInventoryRequest);
 
 				return new Response(StatusCode.OK, "User registred");

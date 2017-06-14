@@ -6,7 +6,6 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.BasicWindow;
 import com.googlecode.lanterna.gui2.Direction;
-import com.googlecode.lanterna.gui2.GridLayout.Alignment;
 import com.googlecode.lanterna.gui2.Label;
 import com.googlecode.lanterna.gui2.LinearLayout;
 import com.googlecode.lanterna.gui2.Panel;
@@ -22,8 +21,8 @@ public class HeaderWindow extends BasicWindow {
 	public HeaderWindow(TerminalSize terminalSize) {
 
 		setHints(Arrays.asList(Window.Hint.FIXED_POSITION, Window.Hint.FIXED_SIZE));
-		setSize(calculateHeaderSize(terminalSize));
 		setPosition(new TerminalPosition(leftMargin, topMargin));
+		refreshLayout(terminalSize);
 		
 		Panel panel = new Panel();
 		panel.setLayoutManager(new LinearLayout(Direction.VERTICAL));
@@ -35,14 +34,9 @@ public class HeaderWindow extends BasicWindow {
 		setComponent(panel);
 	}
 
-
 	public void refreshLayout(TerminalSize terminalSize) {
-		setSize(calculateHeaderSize(terminalSize));
-	}
-
-	private TerminalSize calculateHeaderSize(TerminalSize terminalSize) {
 		int width = terminalSize.getColumns() < leftMargin + rightMargin ? 0 : terminalSize.getColumns() - leftMargin - rightMargin;
 		int height = headerHeight + topMargin;
-		return new TerminalSize(width, height);
+		setSize(new TerminalSize(width, height));
 	}
 }
