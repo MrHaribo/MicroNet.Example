@@ -3,7 +3,6 @@ package SomeGame.GatewayService;
 import java.net.URI;
 
 import SomeGame.DataAccess.ConnectionStore;
-import SomeGame.DataAccess.ParameterCode;
 import SomeGame.DataAccess.UserConnection;
 import micronet.activemq.AMQGatewayPeer;
 import micronet.annotation.MessageListener;
@@ -101,6 +100,9 @@ public class GatewayService {
 		default:
 			if (connection == null)
 				return new Response(StatusCode.UNAUTHORIZED, "Not Authenticated: Only register and login possible");
+			
+			//TODO: Add white- or blacklisting here
+			
 			request.getParameters().set(NetworkConstants.USER_ID, connection.getUserID());
 			return context.sendRequestBlocking(userRequest, request);
 		}

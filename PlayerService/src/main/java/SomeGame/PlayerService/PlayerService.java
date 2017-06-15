@@ -28,7 +28,6 @@ public class PlayerService {
 	
 	@OnStop
 	public void onStop(Context context) {
-		
 	}
 	
 	@MessageListener(uri="/add")

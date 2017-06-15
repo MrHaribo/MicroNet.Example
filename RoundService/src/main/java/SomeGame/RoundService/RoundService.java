@@ -16,7 +16,7 @@ public class RoundService {
 
 	private int roundDuration = 10000;
 	private int intermissionDuration = 5000;
-	
+
 	private Thread roundThread;
 	private boolean isRunning;
 
@@ -37,27 +37,26 @@ public class RoundService {
 	private void roundUpdate(Context context) {
 		while (isRunning) {
 			System.out.println("New Round");
-			
+
 			int voteValue = new Random().nextInt(100) + 1;
-			
+
 			RoundInfo roundInfo = new RoundInfo();
 			roundInfo.setDuration(roundDuration);
 			roundInfo.setVoteValue(voteValue);
-			
 
 			context.getAdvisory().send(Event.RoundStart.toString(), Serialization.serialize(roundInfo));
 			context.broadcastEvent(Event.RoundStart.toString(), Integer.toString(roundDuration));
-			
+
 			try {
 				Thread.sleep(roundDuration);
 			} catch (InterruptedException e) {
 				return;
 			}
-			
+
 			context.getAdvisory().send(Event.RoundEnd.toString(), Serialization.serialize(roundInfo));
 			context.broadcastEvent(Event.RoundEnd.toString(), Integer.toString(intermissionDuration));
 			context.sendRequest("mn://player/score/broadcast", new Request());
-			
+
 			try {
 				Thread.sleep(intermissionDuration);
 			} catch (InterruptedException e) {

@@ -3,7 +3,6 @@ package SomeGame.TestClient;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Arrays;
-import java.util.List;
 
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;

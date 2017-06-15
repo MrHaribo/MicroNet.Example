@@ -16,7 +16,7 @@ public class ConsoleWindow extends BasicWindow {
 	private int terminalWidth = 40;
 	private int terminalHeight = 10; 
 	
-	int horizontalMargin = 2;
+	int horizontalMargin = 1;
 	int verticalMargin = 1;
 	
 	public ConsoleWindow() {
