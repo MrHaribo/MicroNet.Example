@@ -26,11 +26,12 @@ public class GameInformationWindow extends BasicWindow {
 	private int botMargin = 1;
 	private int width = 32;
 
-	private Label roundTimeLabel;
+	private Label timeDisplayLabel;
 	private Table<String> scoreTable;
 	
-	private long roundEndTime;
-	private Timer roundUpdateTimer;
+	private long timeDisplayEndTime;
+	private Timer timeDisplayTimer;
+	private String timeDisplayPrefixText = "Time:";
 
 	public GameInformationWindow(TerminalSize terminalSize) {
 		setHints(Arrays.asList(Window.Hint.FIXED_SIZE, Window.Hint.FIXED_POSITION, Window.Hint.NO_DECORATIONS));
@@ -39,8 +40,8 @@ public class GameInformationWindow extends BasicWindow {
 		Panel panel = new Panel();
 		panel.setLayoutManager(new LinearLayout(Direction.VERTICAL));
 
-		roundTimeLabel = new Label("Remaining: 0s");
-		roundTimeLabel.setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Fill));
+		timeDisplayLabel = new Label("Remaining: 0s");
+		timeDisplayLabel.setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Fill));
 
 		scoreTable = new Table<String>("Player", "Score");
 
@@ -53,7 +54,7 @@ public class GameInformationWindow extends BasicWindow {
 		scoreTable.getTableModel().addRow("James bond", "45686");
 		scoreTable.getTableModel().addRow("James bond", "45686");
 
-		panel.addComponent(roundTimeLabel.withBorder(Borders.singleLine("Round Time")));
+		panel.addComponent(timeDisplayLabel.withBorder(Borders.singleLine("Round Time")));
 		panel.addComponent(scoreTable.withBorder(Borders.singleLine("Score")));
 
 		setComponent(panel.withBorder(Borders.singleLine("Game Information")));
@@ -62,24 +63,25 @@ public class GameInformationWindow extends BasicWindow {
 	}
 
 	private void startRoundTimeUpdate() {
-		roundUpdateTimer = new Timer();
-		roundUpdateTimer.scheduleAtFixedRate(new TimerTask() {
+		timeDisplayTimer = new Timer();
+		timeDisplayTimer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
 				long currentTimeMS = System.currentTimeMillis();
-				long remainingTimeMS = roundEndTime < currentTimeMS ? 0 : roundEndTime - currentTimeMS;
+				long remainingTimeMS = timeDisplayEndTime < currentTimeMS ? 0 : timeDisplayEndTime - currentTimeMS;
 				long timeInSecond = remainingTimeMS / 1000;
-				roundTimeLabel.setText(String.format("Remaining: %ds", timeInSecond));
+				timeDisplayLabel.setText(String.format("%s%ds", timeDisplayPrefixText, timeInSecond));
 			}
 		}, 0, 1);
 	}
 
-	public void setRoundTime(int roundTimeMS) {
-		roundEndTime = System.currentTimeMillis() + roundTimeMS;
+	public void setTimeDisplay(String prefixText, int durationMS) {
+		timeDisplayPrefixText = prefixText;
+		timeDisplayEndTime = System.currentTimeMillis() + durationMS;
 	}
 	
 	public void stopRoundUpdate() {
-		roundUpdateTimer.cancel();
+		timeDisplayTimer.cancel();
 	}
 	
 	public void refreshPlayerScores(Player[] players) {

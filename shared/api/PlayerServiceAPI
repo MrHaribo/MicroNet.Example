@@ -8,6 +8,11 @@
       "responseParameters": []
     },
     {
+      "listenerUri": "/score/add",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
       "listenerUri": "/score/broadcast",
       "requestParameters": [],
       "responseParameters": []

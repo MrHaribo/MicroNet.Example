@@ -2,6 +2,7 @@
   "name": "Event",
   "variables": [
     "RoundStart",
+    "RoundEnd",
     "ScoreUpdate"
   ]
 }

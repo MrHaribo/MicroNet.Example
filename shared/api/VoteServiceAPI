@@ -1,0 +1,16 @@
+{
+  "serviceName": "VoteService",
+  "serviceUri": "mn://vote",
+  "listeners": [
+    {
+      "listenerUri": "/clear",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/put",
+      "requestParameters": [],
+      "responseParameters": []
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "VoteResult",
+  "variables": [
+    {
+      "name": "message",
+      "type": {
+        "type": "STRING"
+      }
+    },
+    {
+      "name": "realValue",
+      "type": {
+        "numberType": "INT",
+        "type": "NUMBER"
+      }
+    },
+    {
+      "name": "score",
+      "type": {
+        "numberType": "INT",
+        "type": "NUMBER"
+      }
+    }
+  ]
+}

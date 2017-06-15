@@ -54,6 +54,16 @@ public class PlayerStore {
         return player;
 	}
 	
+	public void update(int userID, Player newPlayerValues) {
+		System.out.println("Updating Player: " + getPlayerID(userID));
+		
+        JsonObject playerObject = JsonObject.create();
+        playerObject.put(Entity.TYPE_KEY, Player.class.getSimpleName());
+        playerObject.put(Entity.VALUE_KEY, JsonObject.fromJson(Serialization.serialize(newPlayerValues)));
+        
+        bucket.replace(JsonDocument.create(getPlayerID(userID), playerTimeout, playerObject));
+	}
+	
 	public List<Player> all() {
 
         N1qlQueryResult result = bucket.query(

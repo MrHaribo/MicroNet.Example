@@ -41,6 +41,15 @@ public class PlayerService {
 		players.remove(userID);
 	}
 	
+	@MessageListener(uri="/score/add")
+	public void addScore(Context context, Request request) {
+		int userID = request.getParameters().getInt(NetworkConstants.USER_ID);
+		Player player = players.get(userID);
+		int newScore = player.getScore() + Integer.parseInt(request.getData());
+		player.setScore(newScore);
+		players.update(userID, player);
+	}
+	
 	@MessageListener(uri="/score/broadcast")
 	public void broadcastScore(Context context, Request request) {
 		
