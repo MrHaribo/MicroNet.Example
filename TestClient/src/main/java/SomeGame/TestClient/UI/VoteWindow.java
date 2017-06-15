@@ -2,6 +2,7 @@ package SomeGame.TestClient.UI;
 
 import java.util.Arrays;
 
+import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.BasicWindow;
 import com.googlecode.lanterna.gui2.Button;
@@ -14,7 +15,7 @@ import com.googlecode.lanterna.gui2.Window;
 
 public class VoteWindow extends BasicWindow {
 
-	int topMargin = 1;
+	int topMargin = 5;
 	int leftMargin = 1;
 
 	int width = 40;
@@ -28,14 +29,14 @@ public class VoteWindow extends BasicWindow {
 
 	public VoteWindow(Runnable onVote) {
 		
-		setHints(Arrays.asList(Window.Hint.CENTERED));
-		// setPosition(new TerminalPosition(leftMargin, topMargin));
-		// setSize(new TerminalSize(width, height));
+		setHints(Arrays.asList(Window.Hint.FIXED_POSITION));
+		setPosition(new TerminalPosition(leftMargin, topMargin));
+		setSize(new TerminalSize(width, height));
 
 		Panel panel = new Panel();
 		panel.setLayoutManager(new GridLayout(2));
 
-		String msg = String.format("I am thinking of a Number between %d and %d.\nWhich one could it be?", minVote,	maxVote);
+		String msg = String.format("A Number between %d and %d.\nWhich one could it be?", minVote,	maxVote);
 		Label label = new Label(msg);
 		panel.addComponent(label);
 		panel.addComponent(new EmptySpace(new TerminalSize(0, 0)));
@@ -47,7 +48,6 @@ public class VoteWindow extends BasicWindow {
 			onVote.run();
 			setFocusedInteractable(voteInput);
 			voteInput.setText("");
-			setVisible(false);
 		});
 		panel.addComponent(voteButton);
 

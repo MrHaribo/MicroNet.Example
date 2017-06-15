@@ -31,7 +31,7 @@ public class GameInformationWindow extends BasicWindow {
 	
 	private long timeDisplayEndTime;
 	private Timer timeDisplayTimer;
-	private String timeDisplayPrefixText = "Time:";
+	private String timeDisplayPrefixText = "Please Wait:";
 
 	public GameInformationWindow(TerminalSize terminalSize) {
 		setHints(Arrays.asList(Window.Hint.FIXED_SIZE, Window.Hint.FIXED_POSITION, Window.Hint.NO_DECORATIONS));
@@ -40,7 +40,7 @@ public class GameInformationWindow extends BasicWindow {
 		Panel panel = new Panel();
 		panel.setLayoutManager(new LinearLayout(Direction.VERTICAL));
 
-		timeDisplayLabel = new Label("Remaining: 0s");
+		timeDisplayLabel = new Label("Please wait for next round...");
 		timeDisplayLabel.setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Fill));
 
 		scoreTable = new Table<String>("Player", "Score");
@@ -50,9 +50,6 @@ public class GameInformationWindow extends BasicWindow {
 		scoreTable.setTableModel(tableModel);
 
 		scoreTable.setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Fill));
-
-		scoreTable.getTableModel().addRow("James bond", "45686");
-		scoreTable.getTableModel().addRow("James bond", "45686");
 
 		panel.addComponent(timeDisplayLabel.withBorder(Borders.singleLine("Round Time")));
 		panel.addComponent(scoreTable.withBorder(Borders.singleLine("Score")));

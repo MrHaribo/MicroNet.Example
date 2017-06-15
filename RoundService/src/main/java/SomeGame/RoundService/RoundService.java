@@ -14,7 +14,7 @@ import micronet.serialization.Serialization;
 @MessageService(uri = "mn://round")
 public class RoundService {
 
-	private int roundDuration = 30000;
+	private int roundDuration = 10000;
 	private int intermissionDuration = 5000;
 	
 	private Thread roundThread;

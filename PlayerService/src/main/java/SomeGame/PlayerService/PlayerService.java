@@ -13,6 +13,8 @@ import micronet.annotation.OnStop;
 import micronet.network.Context;
 import micronet.network.NetworkConstants;
 import micronet.network.Request;
+import micronet.network.Response;
+import micronet.network.StatusCode;
 import micronet.serialization.Serialization;
 
 @MessageService(uri="mn://player")
@@ -48,6 +50,13 @@ public class PlayerService {
 		int newScore = player.getScore() + Integer.parseInt(request.getData());
 		player.setScore(newScore);
 		players.update(userID, player);
+	}
+	
+	@MessageListener(uri="/score/all")
+	public Response getScores(Context context, Request request) {
+		List<Player> allPlayers = players.all();
+		String data = Serialization.serialize(allPlayers);
+		return new Response(StatusCode.OK, data);
 	}
 	
 	@MessageListener(uri="/score/broadcast")

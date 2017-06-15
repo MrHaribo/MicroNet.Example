@@ -92,7 +92,8 @@ public class GatewayService {
 				int userID = Serialization.deserialize(loginResponse.getData(), Integer.class);
 				connection = connections.get(userID);
 				if (connection != null)
-					return new Response(StatusCode.FORBIDDEN, "User ID already in use");
+					connections.remove(connection.getConnectionID());
+					//return new Response(StatusCode.FORBIDDEN, "User ID already in use");
 				connection = connections.add(connectionID, userID);
 				return new Response(StatusCode.OK);
 			}

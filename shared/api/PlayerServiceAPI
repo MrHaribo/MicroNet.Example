@@ -18,6 +18,11 @@
       "responseParameters": []
     },
     {
+      "listenerUri": "/score/all",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
       "listenerUri": "/remove",
       "requestParameters": [],
       "responseParameters": []
