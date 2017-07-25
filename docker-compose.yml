@@ -1,26 +1,15 @@
 ---
 version: "3"
 services:
-  simpleservice:
-    image: "simpleservice"
-    build: "./SimpleService"
-  activemq:
-    image: "activemq"
-    build: "./activemq"
-    ports:
-    - "61616:61616"
-  accountdb:
-    image: "accountdb"
-    build: "./AccountDB"
-  couchbase:
-    image: "couchbase"
-    build: "./couchbase"
-    ports:
-    - "8091-8094:8091-8094"
-    - "11210:11210"
-  testclient:
-    image: "testclient"
-    build: "./TestClient"
+  roundservice:
+    image: "roundservice"
+    build: "./RoundService"
+  voteservice:
+    image: "voteservice"
+    build: "./VoteService"
+  playerservice:
+    image: "playerservice"
+    build: "./PlayerService"
   accountservice:
     image: "accountservice"
     build: "./AccountService"

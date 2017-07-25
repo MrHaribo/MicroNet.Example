@@ -1,0 +1,11 @@
+{
+  "serviceName": "ServiceFoo",
+  "serviceUri": "mn://foo",
+  "listeners": [
+    {
+      "listenerUri": "/hello",
+      "requestParameters": [],
+      "responseParameters": []
+    }
+  ]
+}

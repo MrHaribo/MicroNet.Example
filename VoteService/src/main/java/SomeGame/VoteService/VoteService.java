@@ -1,11 +1,5 @@
 package SomeGame.VoteService;
 
-import java.util.Map;
-
-import SomeGame.DataAccess.Event;
-import SomeGame.DataAccess.RoundInfo;
-import SomeGame.DataAccess.VoteResult;
-import SomeGame.DataAccess.VoteStore;
 import micronet.annotation.MessageListener;
 import micronet.annotation.MessageService;
 import micronet.annotation.OnStart;
@@ -25,9 +19,6 @@ public class VoteService {
 	VoteStore votes = new VoteStore();
 	
 	public static void main(String[] args) {
-		
-		
-//		
 //		votes.add(42,  314124);
 //		votes.add(43,  6);
 //		votes.add(44,  87);
@@ -39,7 +30,6 @@ public class VoteService {
 //		votes.clear();
 //		all = votes.all();
 //		System.out.println(all);
-//		
 //		
 //		votes.add(42,  314124);
 //		votes.add(43,  6);

@@ -1,4 +1,4 @@
-package SomeGame.DataAccess;
+package SomeGame.VoteService;
 
 import java.util.HashMap;
 import java.util.Map;

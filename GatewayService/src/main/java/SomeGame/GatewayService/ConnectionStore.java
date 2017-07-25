@@ -1,4 +1,4 @@
-package SomeGame.DataAccess;
+package SomeGame.GatewayService;
 
 import java.net.URI;
 import java.util.ArrayList;

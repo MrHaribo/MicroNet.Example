@@ -1,14 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>SomeGame</groupId>
-	<artifactId>DataAccess</artifactId>
+	<artifactId>VoteService</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>SimpleService</name>
+	<name>VoteService</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -20,25 +19,6 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>3.0.0</version>
-				<executions>
-					<execution>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>add-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>apt_generated</source>
-							</sources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
 				<executions>
@@ -57,10 +37,22 @@
 					</execution>
 				</executions>
 			</plugin>
-
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.6.1</version>
+					<configuration>
+						<compilerArgs>
+							<arg>-Aworkspace_path=${project.basedir}\..\</arg>
+						</compilerArgs>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
-
 
 	<repositories>
 		<repository>
@@ -69,32 +61,29 @@
 			<releases>
 				<enabled>false</enabled>
 			</releases>
-			<snapshots />
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
 		</repository>
 	</repositories>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.github.mrharibo.micronet</groupId>
-			<artifactId>micronet</artifactId>
+			<artifactId>mn-micronet</artifactId>
 			<version>0.0.2-SNAPSHOT</version>
 			<type>pom</type>
 		</dependency>
 		<dependency>
-			<groupId>com.couchbase.client</groupId>
-			<artifactId>java-client</artifactId>
-			<version>2.4.5</version>
+			<groupId>com.github.mrharibo.micronet</groupId>
+			<artifactId>tools.annotations.processors.native</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>3.8.1</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.github.mrharibo.micronet</groupId>
-			<artifactId>tools.annotations.processors.native</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 </project>

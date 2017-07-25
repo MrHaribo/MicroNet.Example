@@ -1,4 +1,4 @@
-package SomeGame.DataAccess;
+package SomeGame.PlayerService;
 
 import java.util.ArrayList;
 import java.util.List;

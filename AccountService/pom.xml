@@ -47,6 +47,7 @@
 					<configuration>
 						<compilerArgs>
 							<arg>-Aworkspace_path=${project.basedir}\..\</arg>
+							<arg>-Agenerate_model=true</arg>
 						</compilerArgs>
 					</configuration>
 				</plugin>
@@ -71,27 +72,20 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.github.mrharibo.micronet</groupId>
-			<artifactId>micronet</artifactId>
+			<artifactId>mn-micronet</artifactId>
 			<version>0.0.2-SNAPSHOT</version>
 			<type>pom</type>
-		</dependency>
-
-		<dependency>
-			<groupId>SomeGame</groupId>
-			<artifactId>DataAccess</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.github.mrharibo.micronet</groupId>
 			<artifactId>tools.annotations.processors.native</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

@@ -2,8 +2,6 @@ package SomeGame.GatewayService;
 
 import java.net.URI;
 
-import SomeGame.DataAccess.ConnectionStore;
-import SomeGame.DataAccess.UserConnection;
 import micronet.activemq.AMQGatewayPeer;
 import micronet.annotation.MessageListener;
 import micronet.annotation.MessageService;

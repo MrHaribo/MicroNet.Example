@@ -1,10 +1,5 @@
 package SomeGame.AccountService;
 
-
-import java.net.URI;
-
-import SomeGame.DataAccess.CredentialValues;
-import SomeGame.DataAccess.UserValues;
 import micronet.annotation.MessageListener;
 import micronet.annotation.MessageService;
 import micronet.annotation.OnStart;

@@ -1,0 +1,16 @@
+{
+  "serviceName": "AccountService2",
+  "serviceUri": "mn://account",
+  "listeners": [
+    {
+      "listenerUri": "/login",
+      "requestParameters": [],
+      "responseParameters": []
+    },
+    {
+      "listenerUri": "/register",
+      "requestParameters": [],
+      "responseParameters": []
+    }
+  ]
+}

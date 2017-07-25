@@ -2,10 +2,6 @@ package SomeGame.PlayerService;
 
 import java.util.List;
 
-import SomeGame.DataAccess.Event;
-import SomeGame.DataAccess.ParameterCode;
-import SomeGame.DataAccess.Player;
-import SomeGame.DataAccess.PlayerStore;
 import micronet.annotation.MessageListener;
 import micronet.annotation.MessageService;
 import micronet.annotation.OnStart;

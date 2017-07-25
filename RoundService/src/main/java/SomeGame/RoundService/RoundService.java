@@ -2,8 +2,6 @@ package SomeGame.RoundService;
 
 import java.util.Random;
 
-import SomeGame.DataAccess.Event;
-import SomeGame.DataAccess.RoundInfo;
 import micronet.annotation.MessageService;
 import micronet.annotation.OnStart;
 import micronet.annotation.OnStop;
