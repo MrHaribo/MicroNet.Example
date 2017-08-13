@@ -3,14 +3,10 @@
   "serviceUri": "mn://vote",
   "listeners": [
     {
-      "listenerUri": "/clear",
-      "requestParameters": [],
-      "responseParameters": []
+      "listenerUri": "/clear"
     },
     {
-      "listenerUri": "/put",
-      "requestParameters": [],
-      "responseParameters": []
+      "listenerUri": "/put"
     }
   ]
 }

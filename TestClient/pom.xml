@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>SomeGame</groupId>
+	<groupId>MyGame</groupId>
 	<artifactId>TestClient</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
@@ -49,29 +49,14 @@
 					<configuration>
 						<compilerArgs>
 							<arg>-Aworkspace_path=${project.basedir}\..\</arg>
-							<arg>-Agroup_id=${project.groupId}</arg>
-							<arg>-Aartifact_id=${project.artifactId}</arg>
-							<arg>-Agenerate_model=""</arg>
+							<arg>-Apackage_name=${project.groupId}.${project.artifactId}</arg>
+							<arg>-Agenerate_model=true</arg>
 						</compilerArgs>
 					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
-
-
-	<repositories>
-		<repository>
-			<id>snapshots-repo</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
 
 	<dependencies>
 		<dependency>

@@ -1,11 +1,8 @@
 [
-  "EVENT",
   "HOST",
   "ID",
   "INDEX",
   "NAME",
   "PORT",
-  "POSITION",
-  "TOKEN",
-  "USER_REQUEST"
+  "TOKEN"
 ]

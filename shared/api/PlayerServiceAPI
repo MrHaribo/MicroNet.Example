@@ -1,31 +1,49 @@
 {
   "serviceName": "PlayerService",
   "serviceUri": "mn://player",
+  "description": "Player Service that manages scores",
   "listeners": [
     {
       "listenerUri": "/add",
-      "requestParameters": [],
-      "responseParameters": []
+      "description": "Adds a new Player to the Session Store",
+      "requestParameters": [
+        {
+          "type": "Integer",
+          "description": "User ID"
+        }
+      ]
     },
     {
       "listenerUri": "/score/add",
-      "requestParameters": [],
-      "responseParameters": []
+      "description": "Increments the score of the specified player",
+      "requestParameters": [
+        {
+          "type": "Integer",
+          "description": "User ID"
+        }
+      ],
+      "requestPayload": "Integer",
+      "requestPayloadDescription": "Score Increment"
     },
     {
       "listenerUri": "/score/broadcast",
-      "requestParameters": [],
-      "responseParameters": []
+      "description": "Broadcast the score of all players to all players"
     },
     {
       "listenerUri": "/score/all",
-      "requestParameters": [],
-      "responseParameters": []
+      "description": "Request the score of all players",
+      "requestPayload": "Player[]",
+      "requestPayloadDescription": "All Player Scores"
     },
     {
       "listenerUri": "/remove",
-      "requestParameters": [],
-      "responseParameters": []
+      "description": "Explicitly removes a player from the Session Store.",
+      "requestParameters": [
+        {
+          "type": "Integer",
+          "description": "User ID"
+        }
+      ]
     }
   ]
 }

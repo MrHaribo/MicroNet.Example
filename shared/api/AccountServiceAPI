@@ -1,16 +1,15 @@
 {
   "serviceName": "AccountService",
   "serviceUri": "mn://account",
+  "description": "",
   "listeners": [
     {
       "listenerUri": "/login",
-      "requestParameters": [],
-      "responseParameters": []
+      "description": ""
     },
     {
       "listenerUri": "/register",
-      "requestParameters": [],
-      "responseParameters": []
+      "description": ""
     }
   ]
 }

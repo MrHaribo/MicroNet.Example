@@ -1,4 +1,0 @@
-https://raw.githubusercontent.com/user/repository/branch/filename
-
-
-https://raw.githubusercontent.com/MrHaribo/MicroNet.Example/master/archetypes/archetype-catalog.xml
