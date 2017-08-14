@@ -1,18 +1,45 @@
 ---
 version: "3"
 services:
+  activemq:
+    image: "activemq"
+    build: "activemq"
+    networks:
+    - "bridge"
+    ports:
+    - "61616:61616"
   roundservice:
     image: "roundservice"
-    build: "./RoundService"
+    build: "RoundService"
+    networks:
+    - "bridge"
+  accountdb:
+    image: "accountdb"
+    build: "Account\\AccountDB"
+    networks:
+    - "bridge"
+    ports:
+    - "5432:5432"
   voteservice:
     image: "voteservice"
-    build: "./VoteService"
+    build: "VoteService"
+    networks:
+    - "bridge"
   playerservice:
     image: "playerservice"
-    build: "./PlayerService"
+    build: "PlayerService"
+    networks:
+    - "bridge"
   accountservice:
     image: "accountservice"
-    build: "./AccountService"
+    build: "Account\\AccountService"
+    networks:
+    - "bridge"
   gatewayservice:
     image: "gatewayservice"
-    build: "./GatewayService"
+    build: "GatewayService"
+    networks:
+    - "bridge"
+networks:
+  bridge:
+    driver: "bridge"
