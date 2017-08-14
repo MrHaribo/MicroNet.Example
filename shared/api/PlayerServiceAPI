@@ -8,6 +8,7 @@
       "description": "Adds a new Player to the Session Store",
       "requestParameters": [
         {
+          "code": "USER_ID",
           "type": "Integer",
           "description": "User ID"
         }
@@ -18,6 +19,7 @@
       "description": "Increments the score of the specified player",
       "requestParameters": [
         {
+          "code": "USER_ID",
           "type": "Integer",
           "description": "User ID"
         }
@@ -40,6 +42,7 @@
       "description": "Explicitly removes a player from the Session Store.",
       "requestParameters": [
         {
+          "code": "USER_ID",
           "type": "Integer",
           "description": "User ID"
         }

@@ -1,0 +1,19 @@
+{
+  "name": "UserValues",
+  "variables": [
+    {
+      "name": "id",
+      "type": {
+        "numberType": "INT",
+        "type": "NUMBER"
+      }
+    },
+    {
+      "name": "credentials",
+      "type": {
+        "componentType": "CredentialValues",
+        "type": "COMPONENT"
+      }
+    }
+  ]
+}
