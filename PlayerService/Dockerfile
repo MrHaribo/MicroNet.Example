@@ -4,7 +4,7 @@ RUN mkdir --parents /usr/src/app
 WORKDIR /usr/src/app
 
 ENV message_broker_address="activemq:61616"
-ENV couchbase_address="192.168.0.10"
+ENV couchbase_address="couchbase"
 
 ADD . /usr/src/app
 

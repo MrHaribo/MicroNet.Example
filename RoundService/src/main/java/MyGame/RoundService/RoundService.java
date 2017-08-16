@@ -9,7 +9,7 @@ import micronet.network.Context;
 import micronet.network.Request;
 import micronet.serialization.Serialization;
 
-@MessageService(uri = "mn://round")
+@MessageService(uri = "mn://round", desc="Service which automatically initates rounds")
 public class RoundService {
 
 	private int roundDuration = 10000;

@@ -1,15 +1,21 @@
 {
   "serviceName": "AccountService",
   "serviceUri": "mn://account",
-  "description": "",
+  "description": "Account Service for User registration and Login.",
   "listeners": [
     {
       "listenerUri": "/login",
-      "description": ""
+      "description": "Attempt to log in a User.",
+      "requestPayload": "CredentialValues",
+      "responsePayload": "Integer",
+      "requestPayloadDescription": "",
+      "responsePayloadDescription": "UserID of the User that logged in"
     },
     {
       "listenerUri": "/register",
-      "description": ""
+      "description": "New User Registration",
+      "requestPayload": "CredentialValues",
+      "requestPayloadDescription": ""
     }
   ]
 }

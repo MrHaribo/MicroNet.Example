@@ -3,8 +3,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>MyGame</groupId>
 		<artifactId>MyGameApp</artifactId>
+		<groupId>MyGame</groupId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
@@ -27,7 +27,7 @@
 		<dependency>
 			<groupId>com.github.mrharibo.micronet</groupId>
 			<artifactId>mn-micronet</artifactId>
-			<version>0.0.2-SNAPSHOT</version>
+			<version>0.1.0</version>
 			<type>pom</type>
 		</dependency>
 		<dependency>

@@ -11,18 +11,12 @@
 	<url>http://maven.apache.org</url>
 
 	<modules>
-    <module>Account\AccountDB</module>
     <module>PlayerService</module>
     <module>activemq</module>
-    <module>VoteService</module>
-    <module>Account\AccountService</module>
-    <module>RoundService</module>
-    <module>GatewayService</module>
-    <module>MyGW</module>
-    <module>TehGW</module>
-    <module>MyPlayerService</module>
-    <module>XPlayerServ</module>
-    <module>YTHSD</module>
+    <module>couchbase</module>
+    <module>MyRoundSer</module>
+    <module>XVote</module>
+    <module>asdasdad</module>
   </modules>
 
 	<properties>

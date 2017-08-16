@@ -1,5 +1,6 @@
 {
   "serviceName": "RoundService",
   "serviceUri": "mn://round",
+  "description": "Service which automatically initates rounds",
   "listeners": []
 }

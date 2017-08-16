@@ -7,13 +7,15 @@ import micronet.annotation.MessageListener;
 import micronet.annotation.MessageService;
 import micronet.annotation.OnStart;
 import micronet.annotation.OnStop;
+import micronet.annotation.RequestPayload;
+import micronet.annotation.ResponsePayload;
 import micronet.network.Context;
 import micronet.network.Request;
 import micronet.network.Response;
 import micronet.network.StatusCode;
 import micronet.serialization.Serialization;
 
-@MessageService(uri = "mn://account")
+@MessageService(uri = "mn://account", desc="Account Service for User registration and Login.")
 public class AccountService {
 
 	AccountDatabase database;
@@ -28,7 +30,8 @@ public class AccountService {
 		database.shutdown();
 	}
 
-	@MessageListener(uri = "/register")
+	@MessageListener(uri = "/register", desc="New User Registration")
+	@RequestPayload(CredentialValues.class)
 	public Response onRegister(Context context, Request request) {
 		CredentialValues credentials = Serialization.deserialize(request.getData(), CredentialValues.class);
 		UserValues existingUser = database.getUser(credentials.getUsername());
@@ -46,7 +49,9 @@ public class AccountService {
 		}
 	}
 
-	@MessageListener(uri = "/login")
+	@MessageListener(uri = "/login", desc="Attempt to log in a User.")
+	@RequestPayload(CredentialValues.class)
+	@ResponsePayload(value=Integer.class, desc="UserID of the User that logged in")
 	public Response onLogin(Context context, Request request) {
 		CredentialValues credentials = Serialization.deserialize(request.getData(), CredentialValues.class);
 		UserValues user = database.getUser(credentials.getUsername());

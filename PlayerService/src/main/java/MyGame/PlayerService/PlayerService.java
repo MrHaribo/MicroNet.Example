@@ -30,21 +30,21 @@ public class PlayerService {
 	}
 	
 	@MessageListener(uri="/add", desc="Adds a new Player to the Session Store")
-	@RequestParameters({@MessageParameter(code=ParameterCode.USER_ID, type=Integer.class, desc="User ID")})
+	@RequestParameters({@MessageParameter(code=ParameterCode.USER_ID, type=Integer.class, desc="UserID")})
 	public void addPlayer(Context context, Request request) {
 		int userID = request.getParameters().getInt(ParameterCode.USER_ID);
 		players.add(userID, request.getData());
 	}
 	
 	@MessageListener(uri="/remove", desc="Explicitly removes a player from the Session Store.")
-	@RequestParameters(@MessageParameter(code=ParameterCode.USER_ID, type=Integer.class, desc="User ID"))
+	@RequestParameters(@MessageParameter(code=ParameterCode.USER_ID, type=Integer.class, desc="UserID"))
 	public void removePlayer(Context context, Request request) {
 		int userID = request.getParameters().getInt(ParameterCode.USER_ID);
 		players.remove(userID);
 	}
 	
 	@MessageListener(uri="/score/add", desc="Increments the score of the specified player")
-	@RequestParameters(@MessageParameter(code=ParameterCode.USER_ID, type=Integer.class, desc="User ID"))
+	@RequestParameters(@MessageParameter(code=ParameterCode.USER_ID, type=Integer.class, desc="UserID"))
 	@RequestPayload(value = Integer.class, desc = "Score Increment")
 	public void addScore(Context context, Request request) {
 		int userID = request.getParameters().getInt(ParameterCode.USER_ID);

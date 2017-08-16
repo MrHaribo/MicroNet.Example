@@ -1,12 +1,26 @@
 {
   "serviceName": "VoteService",
   "serviceUri": "mn://vote",
+  "description": "Service that processes player votes",
   "listeners": [
     {
-      "listenerUri": "/clear"
+      "listenerUri": "/clear",
+      "description": "Clear the current vote"
     },
     {
-      "listenerUri": "/put"
+      "listenerUri": "/put",
+      "description": "Place a new vote by a player",
+      "requestParameters": [
+        {
+          "code": "USER_ID",
+          "type": "Integer",
+          "description": "UserID"
+        }
+      ],
+      "requestPayload": "Integer",
+      "responsePayload": "VoteResult",
+      "requestPayloadDescription": "The value of the Vote",
+      "responsePayloadDescription": ""
     }
   ]
 }

@@ -10,7 +10,7 @@
         {
           "code": "USER_ID",
           "type": "Integer",
-          "description": "User ID"
+          "description": "UserID"
         }
       ]
     },
@@ -21,7 +21,7 @@
         {
           "code": "USER_ID",
           "type": "Integer",
-          "description": "User ID"
+          "description": "UserID"
         }
       ],
       "requestPayload": "Integer",
@@ -34,8 +34,8 @@
     {
       "listenerUri": "/score/all",
       "description": "Request the score of all players",
-      "requestPayload": "Player[]",
-      "requestPayloadDescription": "All Player Scores"
+      "responsePayload": "Player[]",
+      "responsePayloadDescription": "All Player Scores"
     },
     {
       "listenerUri": "/remove",
@@ -44,7 +44,7 @@
         {
           "code": "USER_ID",
           "type": "Integer",
-          "description": "User ID"
+          "description": "UserID"
         }
       ]
     }
