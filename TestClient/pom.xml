@@ -61,8 +61,8 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.github.mrharibo.micronet</groupId>
-			<artifactId>micronet</artifactId>
-			<version>0.0.2-SNAPSHOT</version>
+			<artifactId>mn-micronet</artifactId>
+			<version>0.1.0</version>
 			<type>pom</type>
 		</dependency>
 		<dependency>

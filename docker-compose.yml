@@ -5,15 +5,15 @@ services:
     image: "activemq"
     build: "activemq"
     networks:
-    - "bridge"
+    - "mn_bridge_network"
     ports:
     - "61616:61616"
   playerservice:
     image: "playerservice"
     build: "PlayerService"
     networks:
-    - "bridge"
+    - "mn_bridge_network"
 networks:
-  bridge:
+  mn_bridge_network:
     external:
-      name: "bridge"
+      name: "mn_bridge_network"
