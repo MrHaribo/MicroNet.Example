@@ -11,12 +11,8 @@
 	<url>http://maven.apache.org</url>
 
 	<modules>
-    <module>Account\AccountDB</module>
     <module>PlayerService</module>
-    <module>VoteService</module>
-    <module>Account\AccountService</module>
-    <module>RoundService</module>
-    <module>GatewayService</module>
+    <module>activemq</module>
   </modules>
 
 	<properties>

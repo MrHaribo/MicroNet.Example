@@ -1,4 +1,5 @@
+alias=activemq
 container.name=activemq
 eclipse.preferences.version=1
-enabled=true
+enabled=false
 ports=61616\:61616

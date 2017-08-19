@@ -9,6 +9,7 @@ import micronet.annotation.OnStart;
 import micronet.annotation.OnStop;
 import micronet.annotation.RequestParameters;
 import micronet.annotation.RequestPayload;
+import micronet.annotation.ResponseParameters;
 import micronet.annotation.ResponsePayload;
 import micronet.network.Context;
 import micronet.network.Request;
@@ -55,6 +56,7 @@ public class PlayerService {
 	}
 	
 	@MessageListener(uri="/score/all", desc="Request the score of all players")
+	@ResponseParameters(@MessageParameter(code = ParameterCode.EVENT, type = CredentialValues.class))
 	@ResponsePayload(value=Player[].class, desc="All Player Scores")
 	public Response getScores(Context context, Request request) {
 		List<Player> allPlayers = players.all();
@@ -66,7 +68,6 @@ public class PlayerService {
 	public void broadcastScore(Context context, Request request) {
 		List<Player> allPlayers = players.all();
 		String data = Serialization.serialize(allPlayers);
-		
 		context.broadcastEvent(Event.ScoreUpdate.toString(), data);
 	}
 }

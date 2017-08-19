@@ -12,6 +12,7 @@
       "description": "Place a new vote by a player",
       "requestParameters": [
         {
+          "code": "USER_ID",
           "type": "Integer",
           "description": "UserID"
         }

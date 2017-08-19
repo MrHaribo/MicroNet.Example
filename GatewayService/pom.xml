@@ -32,8 +32,8 @@
 		</dependency>
 		<dependency>
 			<groupId>com.github.mrharibo.micronet</groupId>
-			<artifactId>tools.annotations.processors.native</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>mn-tools-processors-annotations</artifactId>
+			<version>0.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

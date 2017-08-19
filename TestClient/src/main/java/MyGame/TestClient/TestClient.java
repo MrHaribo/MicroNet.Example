@@ -134,7 +134,6 @@ public class TestClient {
 		resultWindow.setResult(Serialization.deserialize(response.getData(), VoteResult.class), guessedValue);
 		resultWindow.setVisible(true);
 		gui.setActiveWindow(resultWindow);
-		
 	}
 
 	private static void sendLogin() {

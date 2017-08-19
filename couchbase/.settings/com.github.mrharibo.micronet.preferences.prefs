@@ -1,3 +1,4 @@
+alias=couchbase
 container.name=couchbase
 eclipse.preferences.version=1
 enabled=false
