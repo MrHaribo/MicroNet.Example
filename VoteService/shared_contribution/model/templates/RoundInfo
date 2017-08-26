@@ -1,0 +1,19 @@
+{
+  "name": "RoundInfo",
+  "variables": [
+    {
+      "name": "duration",
+      "type": {
+        "numberType": "INT",
+        "type": "NUMBER"
+      }
+    },
+    {
+      "name": "voteValue",
+      "type": {
+        "numberType": "INT",
+        "type": "NUMBER"
+      }
+    }
+  ]
+}

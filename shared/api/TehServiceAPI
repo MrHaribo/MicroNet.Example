@@ -1,0 +1,11 @@
+{
+  "serviceName": "TehService",
+  "serviceUri": "mn://tehservice",
+  "description": "",
+  "listeners": [
+    {
+      "listenerUri": "/hello/world/handler",
+      "description": ""
+    }
+  ]
+}
